@@ -1,36 +1,111 @@
 /* =========================================================
-   ТЕМА: GTA 6 — неоновый закат Вайс-Сити
+   ТЕМА: GTA 6 — неоновый Майами, роскошь и ночная жизнь
+   Палитра: розовый/малиновый, бирюзовый, закатный оранжевый,
+   чёрный и тёмно-синий. Динамика: параллакс, неон, кинопереходы.
    Всё оформление этой темы лежит в этом файле.
    ========================================================= */
+
+@font-face { font-family: "Pacifico"; font-weight: 400; font-display: swap; src: url("../../fonts/pacifico-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Pacifico"; font-weight: 400; font-display: swap; src: url("../../fonts/pacifico-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
 
 /* карточка на стартовом экране */
 .tc-gta { --tc: #ff2e88; }
 .tc-gta .tc-name { font-family: "Oswald", sans-serif; font-weight: 700; color: #ffd23f; }
 
-html[data-theme="gta"] .decor-gta { display: block; }
-.decor-gta .sky {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 72%, rgba(255,192,122,.55), transparent 45%),
-    linear-gradient(180deg, #170530 0%, #3b0b5c 28%, #8f1e78 50%, #ff3d7f 66%, #ff8a3d 78%, #ffc07a 86%);
+html[data-theme="gta"] {
+  --bg: #0b0418;
+  --text: #fff4fb;
+  --muted: #c9b0dc;
+  --a1: #ff2e88;
+  --a2: #ff8a3d;
+  --a3: #ffd23f;
+  --a4: #19e3d1;
+  --a5: #8b5cf6;
+  --a6: #ffc07a;
+  --glass: rgba(28, 9, 50, .78);
+  --panel-bg: linear-gradient(170deg, #2a0b4a 0%, #170628 55%, #0b0418 100%);
+  --vp-bg: radial-gradient(ellipse at 20% 0%, #2c0b4a, #0b0418 70%);
+  --title-grad: linear-gradient(90deg, #ff2e88, #ff8a3d 55%, #ffd23f);
+  --b1: #19e3d1; --b2: #ffd23f; --b3: #ff8a3d; --b4: #ff2e88; --b5: #8b5cf6;
+  --head: "Oswald", "Arial Narrow", sans-serif;
+  --kicker: "Pacifico", cursive;
+  --glow: 1;
 }
+
+/* ================= СЦЕНА ================= */
+html[data-theme="gta"] .decor-gta { display: block; }
+.decor-gta > * { position: absolute; will-change: translate; }
+.decor-gta .sky {
+  inset: -10% 0 0 0;
+  background:
+    radial-gradient(ellipse at 50% 74%, rgba(255,192,122,.6), transparent 45%),
+    linear-gradient(180deg, #12042a 0%, #2c0a52 22%, #6e1a78 42%, #d42d7e 58%, #ff6a4d 70%, #ff9f45 79%, #ffc988 86%);
+}
+.decor-gta .haze {
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 30%, rgba(25,227,209,.12), transparent 40%);
+  animation: gta-haze 14s ease-in-out infinite alternate;
+}
+@keyframes gta-haze { to { transform: translateX(6%); opacity: .6; } }
 .decor-gta .sun {
-  position: absolute; left: 50%; bottom: 14%;
-  width: min(46vw, 520px); aspect-ratio: 1;
-  transform: translateX(-50%); border-radius: 50%;
-  background: linear-gradient(180deg, #fff1a8 0%, #ffc07a 35%, #ff6a6a 65%, #ff2e88 100%);
-  box-shadow: 0 0 80px rgba(255, 120, 140, .7), 0 0 200px rgba(255, 46, 136, .45);
+  left: 50%; bottom: 15%; margin-left: max(-23vw, -260px);
+  width: min(46vw, 520px); aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(180deg, #fff3b0 0%, #ffc07a 35%, #ff6a6a 65%, #ff2e88 100%);
+  box-shadow: 0 0 90px rgba(255, 120, 140, .75), 0 0 220px rgba(255, 46, 136, .5);
   -webkit-mask: linear-gradient(180deg, #000 0 56%, transparent 56% 60%, #000 60% 69%, transparent 69% 73%, #000 73% 80%, transparent 80% 85%, #000 85% 90%, transparent 90% 96%, #000 96%);
           mask: linear-gradient(180deg, #000 0 56%, transparent 56% 60%, #000 60% 69%, transparent 69% 73%, #000 73% 80%, transparent 80% 85%, #000 85% 90%, transparent 90% 96%, #000 96%);
 }
-.decor-gta .sea {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 16%;
-  background:
-    repeating-linear-gradient(180deg, rgba(255,192,122,.25) 0 2px, transparent 2px 9px),
-    linear-gradient(180deg, #6d1a6e 0%, #2a0a45 60%, #0d0418 100%);
+.decor-gta .far-city { left: 0; right: 0; bottom: 15.5%; width: 100%; height: 34%; opacity: .9; }
+.decor-gta .bridge {
+  left: 0; right: 0; bottom: 15.5%; height: 5px;
+  background: #1a0630; box-shadow: 0 -2px 0 rgba(255, 46, 136, .5);
 }
-.decor-gta .palms { position: absolute; left: 0; right: 0; bottom: 10%; width: 100%; height: 62%; }
+/* огни машин на мосту вдоль горизонта */
+.decor-gta .trails { left: 0; right: 0; bottom: calc(15.5% + 1px); height: 4px; overflow: hidden; }
+.decor-gta .trails i {
+  position: absolute; top: 0; left: -20%; width: 14%; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #ffe6b0);
+  box-shadow: 0 0 8px #ffd23f;
+  animation: gta-trail 5.5s linear infinite;
+}
+.decor-gta .trails i:nth-child(2n) { top: 2px; left: 120%; background: linear-gradient(270deg, transparent, #ff3b5c); box-shadow: 0 0 8px #ff2e88; animation-name: gta-trail-back; }
+.decor-gta .trails i:nth-child(2) { animation-delay: -1.5s; animation-duration: 6.5s; }
+.decor-gta .trails i:nth-child(3) { animation-delay: -2.8s; }
+.decor-gta .trails i:nth-child(4) { animation-delay: -4s; animation-duration: 7s; }
+.decor-gta .trails i:nth-child(5) { animation-delay: -.7s; animation-duration: 4.6s; }
+.decor-gta .trails i:nth-child(6) { animation-delay: -3.3s; animation-duration: 5.8s; }
+@keyframes gta-trail { to { left: 110%; } }
+@keyframes gta-trail-back { to { left: -30%; } }
+.decor-gta .sea {
+  left: 0; right: 0; bottom: -4%; height: 20%;
+  background:
+    repeating-linear-gradient(180deg, rgba(255,192,122,.22) 0 2px, transparent 2px 10px),
+    linear-gradient(180deg, #4b1a78 0%, #1c3a6e 35%, #0e5260 60%, #0b0418 100%);
+  background-size: 100% 20px, 100% 100%;
+  animation: gta-waves 3s linear infinite;
+}
+@keyframes gta-waves { to { background-position: 0 20px, 0 0; } }
+.decor-gta .reflect {
+  position: absolute; left: 50%; top: 0; width: min(30vw, 340px); height: 100%; transform: translateX(-50%);
+  background: repeating-linear-gradient(180deg, rgba(255, 210, 160, .55) 0 3px, transparent 3px 9px);
+  -webkit-mask: linear-gradient(180deg, #000, transparent 85%); mask: linear-gradient(180deg, #000, transparent 85%);
+  filter: blur(1px);
+  animation: gta-shimmer 1.6s ease-in-out infinite alternate;
+}
+@keyframes gta-shimmer { to { width: min(24vw, 280px); opacity: .7; } }
+.decor-gta .palms { left: 0; right: 0; bottom: 10%; width: 100%; height: 62%; }
+/* кинематографичное открытие: чёрные полосы разъезжаются */
+.decor-gta .letterbox { inset: 0; pointer-events: none; }
+.decor-gta .letterbox::before, .decor-gta .letterbox::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 0; background: #000;
+}
+.decor-gta .letterbox::before { top: 0; }
+.decor-gta .letterbox::after { bottom: 0; }
+html.entered[data-theme="gta"] .decor-gta .letterbox::before,
+html.entered[data-theme="gta"] .decor-gta .letterbox::after { animation: gta-letterbox 1.3s cubic-bezier(.7,0,.2,1) both; }
+@keyframes gta-letterbox { 0%, 35% { height: 50%; } 100% { height: 0; } }
 
+/* ================= ПЕРВЫЙ ЭКРАН ================= */
 html[data-theme="gta"] .topnav,
 html[data-theme="gta"] .hero-text { color: #fff4fb; text-shadow: 0 2px 10px rgba(0,0,0,.5); }
 html[data-theme="gta"] .kicker {
@@ -38,18 +113,78 @@ html[data-theme="gta"] .kicker {
   transform: rotate(-4deg); transform-origin: left;
   text-shadow: 0 0 18px rgba(255, 46, 136, .9), 0 0 2px #fff;
 }
-html[data-theme="gta"] h1 span:first-child {
+html[data-theme="gta"] h1 > span:first-child { filter: drop-shadow(4px 4px 0 #0b0418) drop-shadow(0 0 24px rgba(255,46,136,.6)); }
+html[data-theme="gta"] h1 > span:first-child .ch {
   background: linear-gradient(180deg, #fff 0%, #ffe3f1 45%, #ff9ccd 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none;
-  filter: drop-shadow(4px 4px 0 #0d0418) drop-shadow(0 0 24px rgba(255,46,136,.6));
 }
-html[data-theme="gta"] h1 .outline {
-  color: transparent; -webkit-text-stroke: 2px #ffd23f; text-shadow: none;
-  filter: drop-shadow(3px 3px 0 rgba(13,4,24,.85)) drop-shadow(0 0 10px rgba(255, 210, 63, .7));
-}
+html[data-theme="gta"] h1 .outline .ch { color: transparent; -webkit-text-stroke: 2px #ffd23f; text-shadow: none; }
+html[data-theme="gta"] h1 .outline { filter: drop-shadow(3px 3px 0 rgba(11,4,24,.85)) drop-shadow(0 0 10px rgba(255, 210, 63, .7)); }
 html[data-theme="gta"] .btn {
-  color: #0d0418; text-shadow: none;
+  color: #0b0418; text-shadow: none;
   background: linear-gradient(90deg, #ffd23f, #ff8a3d);
   box-shadow: 6px 6px 0 #ff2e88;
+  transform: skewX(-10deg);
 }
-html[data-theme="gta"] .btn:hover { box-shadow: 9px 9px 0 #ff2e88; }
+html[data-theme="gta"] .btn:hover { transform: skewX(-10deg) translate(-3px, -3px); box-shadow: 9px 9px 0 #ff2e88, 0 0 30px rgba(255, 210, 63, .6); }
+
+/* динамичное появление первого экрана */
+html.entered[data-theme="gta"] h1 .ch { animation: gta-char .75s cubic-bezier(.2,.9,.25,1.15) both; animation-delay: calc(.55s + var(--i) * 45ms); }
+html.entered[data-theme="gta"] h1 .outline .ch { animation-delay: calc(1s + var(--i) * 25ms); }
+@keyframes gta-char { from { opacity: 0; transform: translateX(-60px) skewX(-25deg); filter: blur(8px); } }
+html.entered[data-theme="gta"] .kicker { animation: gta-pop .6s cubic-bezier(.3,1.6,.5,1) .4s both; }
+@keyframes gta-pop { from { opacity: 0; transform: rotate(-4deg) scale(.6); } }
+html.entered[data-theme="gta"] .lead,
+html.entered[data-theme="gta"] .btn { animation: gta-up .8s ease 1.3s both; }
+html.entered[data-theme="gta"] .btn { animation-delay: 1.45s; }
+@keyframes gta-up { from { opacity: 0; translate: 0 26px; } }
+
+/* ================= РАЗДЕЛЫ ================= */
+html[data-theme="gta"] .section::before {
+  content: ""; position: absolute; left: clamp(18px, 5vw, 72px); right: clamp(18px, 5vw, 72px); top: 30px; height: 2px;
+  background: linear-gradient(90deg, transparent, #ff2e88, #19e3d1, transparent);
+  box-shadow: 0 0 14px rgba(255, 46, 136, .6);
+}
+html[data-theme="gta"] .sec-title { letter-spacing: .01em; }
+/* подзаголовок — наклонная «рекламная» плашка */
+html[data-theme="gta"] .sec-sub {
+  display: inline-block; padding: 5px 12px;
+  color: #0b0418; background: #19e3d1; font-weight: 700;
+  box-shadow: 4px 4px 0 #ff2e88;
+}
+
+/* карточки-постеры */
+html[data-theme="gta"] .step {
+  overflow: hidden;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 30%, #12041f) 0%, #12041f 75%);
+}
+html[data-theme="gta"] .step b { top: auto; bottom: -18px; right: 10px; font-size: 120px; color: transparent; -webkit-text-stroke: 2px var(--c); opacity: .55; }
+html[data-theme="gta"] .step::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.18), transparent);
+  transform: skewX(-20deg);
+}
+html[data-theme="gta"] .step:hover::after { animation: gta-shine .9s ease; }
+@keyframes gta-shine { to { left: 130%; } }
+html[data-theme="gta"] .step.in:hover,
+html[data-theme="gta"] .flow li.in:hover { animation: gta-neon 1.1s steps(1) both; }
+@keyframes gta-neon {
+  0%   { box-shadow: 0 0 40px color-mix(in srgb, var(--c) 90%, transparent); }
+  10%  { box-shadow: none; }
+  20%  { box-shadow: 0 0 40px color-mix(in srgb, var(--c) 90%, transparent); }
+  28%  { box-shadow: none; }
+  40%, 100% { box-shadow: 0 0 46px color-mix(in srgb, var(--c) 95%, transparent), inset 0 0 30px color-mix(in srgb, var(--c) 30%, transparent); }
+}
+html[data-theme="gta"] .flow li { --c: #ff2e88; }
+html[data-theme="gta"] .toolbar button { transition: box-shadow .2s, background .2s; }
+html[data-theme="gta"] .toolbar button:hover { box-shadow: 0 0 18px rgba(139, 92, 246, .9); }
+
+/* появление при прокрутке — быстрое и «киношное» */
+html[data-theme="gta"] .reveal {
+  transform: translateY(46px) scale(.97);
+  transition: opacity .85s cubic-bezier(.2,.8,.2,1), transform .85s cubic-bezier(.2,.8,.2,1);
+  transition-delay: min(calc(var(--ri, 0) * 80ms), 560ms);
+}
+html[data-theme="gta"] .sec-sub.reveal { transform: translateY(30px) rotate(-6deg); }
+html[data-theme="gta"] .sec-sub.reveal.in { transform: rotate(-1.5deg); }
+html[data-theme="gta"] .reveal.in { transform: none; }

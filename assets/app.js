@@ -4,6 +4,88 @@
    ========================================================= */
 const AUTHOR = "Хомик Екатерина";
 
+// ---------- общие эффекты: буквы заголовка, появление при прокрутке, параллакс ----------
+window.MMFX = (function () {
+  "use strict";
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // заголовок первого экрана: каждая буква в своём <span class="ch" style="--i:N">,
+  // чтобы темы могли анимировать буквы по очереди; data-text — для глитча
+  document.querySelectorAll(".hero h1 > span").forEach(line => {
+    const text = line.textContent;
+    line.dataset.text = text;
+    line.setAttribute("aria-label", text);
+    line.textContent = "";
+    [...text].forEach((c, i) => {
+      const ch = document.createElement("span");
+      ch.className = "ch";
+      ch.setAttribute("aria-hidden", "true");
+      ch.style.setProperty("--i", i);
+      ch.textContent = c === " " ? " " : c;
+      line.appendChild(ch);
+    });
+  });
+
+  // появление блоков при прокрутке: класс .reveal → .in (вид анимации задаёт тема)
+  const targets = document.querySelectorAll(
+    ".sec-title, .sec-sub, .step, .flow li, .toolbar, .legend, .viewport, .footer p");
+  targets.forEach(el => {
+    el.classList.add("reveal");
+    const sibs = [...el.parentElement.children].filter(c => c.classList.contains("reveal") || targetsHas(c));
+    el.style.setProperty("--ri", Math.max(0, sibs.indexOf(el)));
+  });
+  function targetsHas(el) { return [...targets].includes(el); }
+
+  // следим за разделами целиком (а не за самими блоками: у обрезанных clip-path
+  // блоков нулевая видимая площадь), и при появлении раздела открываем его блоки
+  const groups = [...new Set([...targets].map(el => el.closest(".section, .footer") || el))];
+  let io = null;
+  function observe() {
+    if (io) io.disconnect();
+    if (reducedMotion || !("IntersectionObserver" in window)) { targets.forEach(el => el.classList.add("in")); return; }
+    io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const g = e.target;
+        (g.classList.contains("reveal") ? [g] : g.querySelectorAll(".reveal")).forEach(el => el.classList.add("in"));
+        io.unobserve(g);
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -18% 0px" });
+    groups.forEach(g => io.observe(g));
+  }
+  function resetReveal() {
+    targets.forEach(el => el.classList.remove("in"));
+    requestAnimationFrame(observe);
+  }
+  observe();
+
+  // параллакс: элементы сцены с data-depth="0.3" сдвигаются при прокрутке и движении мыши
+  const hero = document.querySelector(".hero");
+  let mx = 0, my = 0, ticking = false;
+  function frame() {
+    ticking = false;
+    const y = window.scrollY;
+    if (y > window.innerHeight * 1.2) return;
+    document.querySelectorAll('.decor [data-depth]').forEach(el => {
+      const d = parseFloat(el.dataset.depth) || 0;
+      const k = parseFloat(el.dataset.mouse || "0");
+      el.style.translate = `${(mx * k).toFixed(1)}px ${(y * d + my * k).toFixed(1)}px`;
+    });
+  }
+  function request() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  if (!reducedMotion) {
+    window.addEventListener("scroll", request, { passive: true });
+    hero.addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      mx = (e.clientX / window.innerWidth - 0.5) * -2;
+      my = (e.clientY / window.innerHeight - 0.5) * -2;
+      request();
+    });
+  }
+
+  return { reducedMotion, resetReveal, refreshParallax: request };
+})();
+
 // ---------- автор и темы оформления ----------
 (function () {
   "use strict";
@@ -69,14 +151,27 @@ const AUTHOR = "Хомик Екатерина";
   function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function save(t) { try { localStorage.setItem(KEY, t); } catch (e) { /* хранилище недоступно */ } }
 
+  let current = null;
   function applyTheme(id) {
     if (!active.includes(id)) id = active[0];
     if (!id) { delete html.dataset.theme; return; }
+    if (current && current !== id && defs[current].onLeave) defs[current].onLeave();
+    current = id;
     html.dataset.theme = id;
     if (kickerEl && defs[id].kicker) kickerEl.textContent = defs[id].kicker;
     cardsEl.querySelectorAll(".theme-card").forEach(c => c.classList.toggle("last", c.dataset.themePick === id));
     if (window.mmRefresh) requestAnimationFrame(() => window.mmRefresh());
   }
+  // «вход» в тему: перезапуск анимаций первого экрана и эффект темы (onEnter в theme.js)
+  function enterTheme() {
+    html.classList.remove("entered");
+    void html.offsetWidth;           // перезапуск CSS-анимаций
+    html.classList.add("entered");
+    window.MMFX.resetReveal();
+    const t = defs[current];
+    if (t && t.onEnter && !window.MMFX.reducedMotion) t.onEnter(window.MMFX);
+  }
+
   function showStart() {
     startEl.classList.remove("hidden");
     document.body.classList.add("start-open");
@@ -97,7 +192,7 @@ const AUTHOR = "Хомик Екатерина";
 
   // ?theme=<id> в адресе — сразу открыть сайт в этой теме, без стартового экрана
   const fromUrl = new URLSearchParams(location.search).get("theme");
-  if (active.includes(fromUrl) || nothingToChoose) { applyTheme(fromUrl); chosen = true; hideStart(); }
+  if (active.includes(fromUrl) || nothingToChoose) { applyTheme(fromUrl); chosen = true; hideStart(); enterTheme(); }
   else { applyTheme(saved()); showStart(); }
 
   cardsEl.addEventListener("click", e => {
@@ -108,6 +203,7 @@ const AUTHOR = "Хомик Екатерина";
     if (!chosen) window.scrollTo(0, 0);
     chosen = true;
     hideStart();
+    enterTheme();
   });
   if (openBtn) openBtn.addEventListener("click", showStart);
   document.addEventListener("keydown", e => {

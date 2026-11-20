@@ -371,3 +371,13 @@ h1 .outline { font-size: .42em; letter-spacing: .06em; margin-top: 10px; }
 }
 .help .help-author { margin-top: 22px; color: var(--muted); font-size: 14px; }
 .help .help-author b { color: var(--text); }
+
+/* ================= ЭФФЕКТЫ (база; темы переопределяют) ================= */
+.hero h1 .ch { display: inline-block; }
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .7s ease, transform .7s ease;
+  transition-delay: min(calc(var(--ri, 0) * 70ms), 560ms);
+}
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; clip-path: none !important; filter: none !important; } }
