@@ -1,7 +1,125 @@
+/* =========================================================
+   АВТОР — впишите сюда своё имя (оно появится на стартовом
+   экране, в подвале сайта и в справке)
+   ========================================================= */
+const AUTHOR = "Хомик Екатерина";
+
+// ---------- автор и темы оформления ----------
+(function () {
+  "use strict";
+  const KEY = "mindmap-theme";
+  const html = document.documentElement;
+  const startEl = document.getElementById("start");
+  const cardsEl = document.getElementById("theme-cards");
+  const decorSlot = document.getElementById("decor-slot");
+  const kickerEl = document.getElementById("kicker");
+  const openBtn = document.getElementById("theme-open");
+  let chosen = false;
+
+  document.querySelectorAll("[data-author]").forEach(el => { el.textContent = AUTHOR; });
+
+  // темы, которые подключены в index.html, и их статус из config.js
+  const config = window.MM_THEME_CONFIG || {};
+  const defs = {};
+  (window.MM_THEMES || []).forEach(t => { defs[t.id] = t; });
+  const order = Object.keys(config).filter(id => defs[id]);
+  // тема подключена в index.html, но забыта в config.js — считаем включённой
+  Object.keys(defs).forEach(id => { if (!(id in config)) order.push(id); });
+  const status = id => (config[id] || "on");
+  const listed = order.filter(id => status(id) !== "off");     // видны на стартовом экране
+  const active = listed.filter(id => status(id) === "on");     // можно выбрать
+
+  // стили и сцены только для видимых тем
+  listed.forEach(id => {
+    const t = defs[id];
+    const link = document.createElement("link");
+    link.rel = "stylesheet"; link.href = t.css;
+    link.onload = () => { if (window.mmRefresh) window.mmRefresh(); };   // пересчитать карту под шрифты темы
+    document.head.appendChild(link);
+    if (status(id) === "on") {
+      const d = document.createElement("div");
+      d.className = "decor decor-" + id;
+      d.setAttribute("aria-hidden", "true");
+      d.innerHTML = t.decor;
+      decorSlot.appendChild(d);
+    }
+  });
+
+  // карточки на стартовом экране
+  listed.forEach(id => {
+    const t = defs[id], soon = status(id) === "soon";
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "theme-card tc-" + id + (soon ? " soon" : "");
+    if (soon) { card.disabled = true; card.setAttribute("aria-disabled", "true"); }
+    else card.dataset.themePick = id;
+    card.innerHTML =
+      '<span class="tc-art">' + (soon ? '<span class="tc-soon-badge">Скоро</span>' : "") + t.card + '</span>' +
+      '<span class="tc-body"><span class="tc-name"></span><span class="tc-desc"></span>' +
+      '<span class="tc-go">' + (soon ? "Тема в разработке" : "Выбрать →") + '</span></span>';
+    card.querySelector(".tc-name").textContent = t.name;
+    card.querySelector(".tc-desc").textContent = t.desc;
+    cardsEl.appendChild(card);
+  });
+
+  // список тем в справке
+  const listEl = document.getElementById("theme-list");
+  if (listEl) listEl.textContent = active.map(id => defs[id].name).join(", ");
+
+  function saved() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function save(t) { try { localStorage.setItem(KEY, t); } catch (e) { /* хранилище недоступно */ } }
+
+  function applyTheme(id) {
+    if (!active.includes(id)) id = active[0];
+    if (!id) { delete html.dataset.theme; return; }
+    html.dataset.theme = id;
+    if (kickerEl && defs[id].kicker) kickerEl.textContent = defs[id].kicker;
+    cardsEl.querySelectorAll(".theme-card").forEach(c => c.classList.toggle("last", c.dataset.themePick === id));
+    if (window.mmRefresh) requestAnimationFrame(() => window.mmRefresh());
+  }
+  function showStart() {
+    startEl.classList.remove("hidden");
+    document.body.classList.add("start-open");
+    const cur = cardsEl.querySelector(".theme-card.last") || cardsEl.querySelector(".theme-card:not(.soon)");
+    if (cur) cur.focus({ preventScroll: true });
+  }
+  function hideStart() {
+    startEl.classList.add("hidden");
+    document.body.classList.remove("start-open");
+  }
+
+  // выбирать не из чего (0–1 тема без заглушек) — стартовый экран и кнопку «Тема» не показываем
+  const nothingToChoose = listed.length <= 1;
+  if (nothingToChoose) {
+    if (openBtn) openBtn.hidden = true;
+    document.querySelectorAll(".theme-help").forEach(el => { el.hidden = true; });
+  }
+
+  // ?theme=<id> в адресе — сразу открыть сайт в этой теме, без стартового экрана
+  const fromUrl = new URLSearchParams(location.search).get("theme");
+  if (active.includes(fromUrl) || nothingToChoose) { applyTheme(fromUrl); chosen = true; hideStart(); }
+  else { applyTheme(saved()); showStart(); }
+
+  cardsEl.addEventListener("click", e => {
+    const card = e.target.closest("[data-theme-pick]");
+    if (!card) return;
+    const id = card.dataset.themePick;
+    applyTheme(id); save(id);
+    if (!chosen) window.scrollTo(0, 0);
+    chosen = true;
+    hideStart();
+  });
+  if (openBtn) openBtn.addEventListener("click", showStart);
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && chosen && !startEl.classList.contains("hidden")) hideStart();
+  });
+})();
+
 (function () {
   "use strict";
 
-  const BRANCH_COLORS = ["#19e3d1", "#ffd23f", "#ff8a3d", "#ff2e88", "#8b5cf6", "#ffc07a"];
+  // цвета веток берутся из темы (переменные --b1…--b5 в assets/themes/*/theme.css)
+  const BRANCH_COLORS = ["var(--b1)", "var(--b2)", "var(--b3)", "var(--b4)", "var(--b5)", "var(--a6)"];
   const GAP_X = 46;   // расстояние между уровнями
   const GAP_Y = 10;   // расстояние между соседними узлами
   const GAP_BRANCH = 26;
@@ -24,7 +142,7 @@
     raw.c.forEach(c => n.kids.push(build(c, depth + 1, n.branch, n)));
     return n;
   }
-  const root = build(window.MINDMAP, 0, "#ffd23f", null);
+  const root = build(window.MINDMAP, 0, "var(--a3)", null);
 
   function classify(n) {
     const t = n.text;
@@ -117,7 +235,7 @@
         const x1 = p.x + p.w + (p.kids.length ? 12 : 0), y1 = p.y + p.h / 2;
         const x2 = n.x, y2 = n.y + n.h / 2;
         const mx = (x1 + x2) / 2;
-        paths += `<path stroke="${n.branch}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}"/>`;
+        paths += `<path style="stroke:${n.branch}" d="M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}"/>`;
       }
     });
     svg.setAttribute("width", maxX + 40);
@@ -252,9 +370,10 @@
   });
 
   // ---------- старт ----------
-  function start() { render(); fit(); }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
-  if (document.fonts) document.fonts.addEventListener("loadingdone", () => { render(); });
+  function refresh() { render(); fit(); }
+  window.mmRefresh = refresh;   // вызывается при смене темы
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refresh); else refresh();
+  if (document.fonts) document.fonts.addEventListener("loadingdone", refresh);
   window.addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(fit, 150); });
 })();
 

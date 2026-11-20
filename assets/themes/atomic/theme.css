@@ -1,0 +1,113 @@
+/* =========================================================
+   ТЕМА: ATOMIC HEART — советский ретрофутуризм
+   Всё оформление этой темы лежит в этом файле.
+   ========================================================= */
+
+/* карточка на стартовом экране */
+.tc-atomic { --tc: #e0303f; }
+.tc-atomic .tc-name { font-family: "Russo One", sans-serif; color: #efe4cc; }
+
+html[data-theme="atomic"] {
+  --bg: #17191c;
+  --text: #f1e8d6;
+  --muted: #b0a898;
+  --a1: #e0303f;
+  --a2: #e8743b;
+  --a3: #e0b84c;
+  --a4: #4fb3a9;
+  --a5: #6c7783;
+  --a6: #efe4cc;
+  --glass: rgba(37, 40, 45, .95);
+  --tpl: #f3dfb8;
+  --err: #ff5a4f;
+  --panel-bg: linear-gradient(170deg, #2a2d32 0%, #1c1e22 100%);
+  --vp-bg: radial-gradient(ellipse at 20% 0%, #2b2f35, #17191c 70%);
+  --grid: rgba(239, 228, 204, .05);
+  --title-grad: linear-gradient(90deg, #e0303f, #e0b84c);
+  --b1: #4fb3a9; --b2: #e0b84c; --b3: #e8743b; --b4: #e0303f; --b5: #9aa6b2;
+  --head: "Russo One", "Arial Black", sans-serif;
+  --kicker: "PT Mono", monospace;
+  --glow: .25;
+}
+html[data-theme="atomic"] .decor-atomic { display: block; }
+.decor-atomic { background: #efe4cc; }
+.decor-atomic .ah-rays {
+  position: absolute; inset: 0;
+  background: repeating-conic-gradient(from 0deg at 74% 46%, #e6d6b6 0 5deg, #efe4cc 5deg 10deg);
+}
+.decor-atomic .ah-sun {
+  position: absolute; right: 5%; top: 50%; transform: translateY(-58%);
+  width: min(38vw, 520px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #f04a55, #d7263d 55%, #a51626 100%);
+  box-shadow: 0 0 0 14px #efe4cc, 0 0 0 20px #1c1a17;
+}
+.decor-atomic .ah-atom {
+  position: absolute; right: 5%; top: 50%; transform: translateY(-58%);
+  width: min(38vw, 520px); aspect-ratio: 1;
+}
+.decor-atomic .ah-atom .orbits { transform-origin: 200px 200px; animation: ah-spin 60s linear infinite; }
+@keyframes ah-spin { to { transform: rotate(360deg); } }
+.decor-atomic .ah-tower { position: absolute; right: 2%; bottom: 7%; height: 46%; }
+.decor-atomic .ah-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 9%; background: #1c1a17; }
+.decor-atomic .ah-band {
+  position: absolute; left: -5%; right: -5%; bottom: 9%;
+  height: 46px; display: flex; align-items: center; overflow: hidden; white-space: nowrap;
+  background: #d7263d; color: #efe4cc;
+  font: 400 15px "PT Mono", monospace; letter-spacing: .28em; text-transform: uppercase;
+  transform: rotate(-2.2deg);
+  box-shadow: 0 6px 0 #1c1a17;
+}
+.decor-atomic .ah-band span { display: inline-block; padding-left: 100%; animation: ah-ticker 40s linear infinite; }
+@keyframes ah-ticker { to { transform: translateX(-100%); } }
+.decor-atomic .ah-grain {
+  position: absolute; inset: 0; opacity: .35; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html[data-theme="atomic"] .topnav,
+html[data-theme="atomic"] .hero-text { color: #1c1a17; }
+html[data-theme="atomic"] .navlinks a:hover,
+html[data-theme="atomic"] .theme-btn:hover { color: #d7263d; }
+html[data-theme="atomic"] .kicker {
+  display: inline-block;
+  font: 400 15px "PT Mono", monospace; letter-spacing: .2em; text-transform: uppercase;
+  padding: 6px 12px; color: #efe4cc; background: #1c1a17;
+}
+html[data-theme="atomic"] h1 { line-height: 1; font-size: clamp(44px, 7.4vw, 108px); }
+html[data-theme="atomic"] h1 span:first-child {
+  color: #d7263d; margin-top: 14px;
+  text-shadow: 5px 5px 0 #1c1a17;
+}
+html[data-theme="atomic"] h1 .outline {
+  display: inline-block; width: fit-content;
+  margin-top: 14px; padding: 6px 14px;
+  font-size: .36em; color: #1c1a17;
+  border: 4px solid #1c1a17; background: #efe4cc;
+}
+html[data-theme="atomic"] .lead { color: #2b2824; background: rgba(239,228,204,.82); padding: 4px 0; }
+html[data-theme="atomic"] .btn {
+  color: #efe4cc; background: #d7263d;
+  box-shadow: 6px 6px 0 #1c1a17;
+}
+html[data-theme="atomic"] .btn:hover { box-shadow: 9px 9px 0 #1c1a17; }
+html[data-theme="atomic"] .hero::after { height: 0; }
+html[data-theme="atomic"] .section:nth-of-type(odd) {
+  background: repeating-linear-gradient(135deg, transparent 0 22px, rgba(239,228,204,.025) 22px 44px);
+}
+html[data-theme="atomic"] .sec-title,
+html[data-theme="atomic"] .step h3,
+html[data-theme="atomic"] .flow h3 { letter-spacing: .02em; }
+html[data-theme="atomic"] .step { border-width: 3px; }
+html[data-theme="atomic"] .step b { text-shadow: 4px 4px 0 #0c0d0f; }
+html[data-theme="atomic"] .flow li { background: #24272c; border-left-color: #e0303f; }
+html[data-theme="atomic"] .node.d0 { color: #efe4cc; background: #d7263d; box-shadow: 6px 6px 0 #0c0d0f; }
+html[data-theme="atomic"] .node.d1 { box-shadow: 4px 4px 0 #0c0d0f; }
+html[data-theme="atomic"] .help-pill { color: #efe4cc; background: #d7263d; box-shadow: 4px 4px 0 #0c0d0f; }
+html[data-theme="atomic"] .help { box-shadow: 8px 8px 0 #0c0d0f; }
+html[data-theme="atomic"] .help .help-kicker { font-size: 14px; letter-spacing: .2em; text-transform: uppercase; }
+
+/* мобильная раскладка сцены */
+@media (max-width: 700px) {
+  .decor-atomic .ah-sun, .decor-atomic .ah-atom { width: 64vw; right: -14vw; top: 9%; transform: none; }
+  .decor-atomic .ah-tower { height: 30%; right: -4%; }
+  html[data-theme="atomic"] .hero-text { padding-top: 34vh; }
+}

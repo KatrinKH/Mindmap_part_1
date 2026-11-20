@@ -1,0 +1,130 @@
+/* =========================================================
+   ТЕМА: RESIDENT EVIL REQUIEM — survival horror
+   Всё оформление этой темы лежит в этом файле.
+   ========================================================= */
+
+/* карточка на стартовом экране */
+.tc-re { --tc: #c4161c; }
+.tc-re .tc-name { font-family: "Playfair Display", serif; font-weight: 900; color: #e8e0d4; }
+
+html[data-theme="re"] {
+  --bg: #0a0809;
+  --text: #ece6dc;
+  --muted: #9a9086;
+  --a1: #c4161c;
+  --a2: #e0482f;
+  --a3: #e9dcc0;
+  --a4: #7ea37a;
+  --a5: #4a3f44;
+  --a6: #c9a978;
+  --glass: rgba(22, 16, 18, .92);
+  --tpl: #e6d3ad;
+  --err: #ff4040;
+  --panel-bg: linear-gradient(170deg, #1d1214 0%, #0d0a0b 100%);
+  --vp-bg: radial-gradient(ellipse at 30% 0%, #2a0d10, #0a0809 70%);
+  --grid: rgba(196, 22, 28, .06);
+  --title-grad: linear-gradient(90deg, #c4161c, #ff5a3c);
+  --b1: #7ea37a; --b2: #e9dcc0; --b3: #d9772f; --b4: #d01e26; --b5: #8e8a9c;
+  --head: "Playfair Display", Georgia, serif;
+  --kicker: "PT Mono", monospace;
+  --glow: .4;
+}
+html[data-theme="re"] .decor-re { display: block; }
+.decor-re .re-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #040304 0%, #0f0708 40%, #250a0d 70%, #3a0e12 84%, #0a0809 100%);
+}
+.decor-re .re-moon {
+  position: absolute; right: 14%; top: 12%;
+  width: min(22vw, 280px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #f1d2c2 0%, #d06a5c 38%, #9c1c1e 72%, #5a0d10 100%);
+  box-shadow: 0 0 90px rgba(196, 22, 28, .55), 0 0 220px rgba(196, 22, 28, .25);
+  opacity: .92;
+}
+.decor-re .re-cloud {
+  position: absolute; right: 0; top: 27%; width: 52%; height: 7%;
+  background: radial-gradient(ellipse at center, rgba(10,6,7,.6), transparent 70%);
+  filter: blur(10px);
+  animation: re-drift 26s ease-in-out infinite alternate;
+}
+@keyframes re-drift { from { transform: translateX(8%); } to { transform: translateX(-14%); } }
+.decor-re .re-house { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 66%; }
+.decor-re .re-house .win { fill: #e9a24c; }
+.decor-re .re-house .win.dim { opacity: .35; }
+.decor-re .re-house .win.flicker { animation: re-flicker 5s steps(1) infinite; }
+@keyframes re-flicker {
+  0%, 62%, 66%, 70%, 100% { opacity: .9; }
+  64%, 68%, 72%, 86% { opacity: .1; }
+}
+.decor-re .re-rain, .decor-re .re-rain2 {
+  position: absolute; inset: -20% 0 0 0; pointer-events: none;
+  background: repeating-linear-gradient(100deg, transparent 0 22px, rgba(210, 205, 215, .09) 22px 23px);
+  background-size: 100% 140px;
+  animation: re-rain .55s linear infinite;
+}
+.decor-re .re-rain2 { opacity: .6; background-size: 100% 90px; animation-duration: .8s; transform: translateX(40px); }
+@keyframes re-rain { to { background-position: -40px 140px; } }
+.decor-re .re-fog {
+  position: absolute; left: -10%; right: -10%; bottom: 0; height: 30%;
+  background: radial-gradient(ellipse at 30% 100%, rgba(140, 120, 120, .22), transparent 60%),
+              radial-gradient(ellipse at 75% 100%, rgba(140, 120, 120, .18), transparent 55%);
+  animation: re-drift 18s ease-in-out infinite alternate;
+}
+.decor-re .re-flash { position: absolute; inset: 0; background: #d9d4e6; opacity: 0; mix-blend-mode: overlay; animation: re-flash 11s infinite; }
+@keyframes re-flash { 0%, 90%, 93%, 100% { opacity: 0; } 91% { opacity: .55; } 92% { opacity: .1; } 92.5% { opacity: .4; } }
+.decor-re .re-grain {
+  position: absolute; inset: -50%; opacity: .14; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: re-grain .9s steps(4) infinite;
+}
+@keyframes re-grain { 0% { transform: translate(0,0); } 25% { transform: translate(-3%,2%); } 50% { transform: translate(2%,-3%); } 75% { transform: translate(-2%,-1%); } }
+.decor-re .re-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,.8)); }
+
+html[data-theme="re"] .topnav,
+html[data-theme="re"] .hero-text { color: #e4ddd2; }
+html[data-theme="re"] .navlinks a:hover,
+html[data-theme="re"] .theme-btn:hover { color: #ff3b3b; }
+html[data-theme="re"] .brand,
+html[data-theme="re"] .navlinks a,
+html[data-theme="re"] .theme-btn { font-family: "PT Mono", monospace; letter-spacing: .14em; }
+html[data-theme="re"] .kicker {
+  font: 400 clamp(13px, 1.4vw, 16px) "PT Mono", monospace; letter-spacing: .28em; text-transform: uppercase;
+  color: #e0302f;
+}
+html[data-theme="re"] .kicker::after { content: "▌"; margin-left: 4px; animation: re-caret 1s steps(1) infinite; }
+@keyframes re-caret { 50% { opacity: 0; } }
+html[data-theme="re"] h1 { font-weight: 900; line-height: .95; letter-spacing: .01em; font-size: clamp(40px, 7.6vw, 110px); }
+html[data-theme="re"] h1 span:first-child {
+  background: linear-gradient(180deg, #f4eee4 0%, #e6dccd 58%, #b3141b 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 26px rgba(196, 22, 28, .45));
+}
+html[data-theme="re"] h1 .outline {
+  font: 400 max(.2em, 13px) "PT Mono", monospace; letter-spacing: .5em; margin-top: 18px;
+  color: #e0302f;
+}
+html[data-theme="re"] .lead { color: #cfc6b9; }
+html[data-theme="re"] .btn {
+  font-family: "PT Mono", monospace; letter-spacing: .2em; font-size: 15px;
+  color: #ece6dc; background: rgba(10, 8, 9, .4);
+  border: 2px solid #c4161c;
+}
+html[data-theme="re"] .btn:hover { background: #c4161c; transform: none; }
+html[data-theme="re"] .sec-title { font-weight: 900; text-transform: none; }
+html[data-theme="re"] .sec-title span { text-transform: uppercase; }
+html[data-theme="re"] .step h3, html[data-theme="re"] .flow h3 { font-weight: 700; text-transform: none; font-size: 22px; }
+html[data-theme="re"] .flow i,
+html[data-theme="re"] .step b { font-family: "PT Mono", monospace; }
+html[data-theme="re"] .flow li { background: linear-gradient(160deg, #1a1113, #0f0b0c); border-left-color: #c4161c; }
+html[data-theme="re"] .toolbar button,
+html[data-theme="re"] .help-pill,
+html[data-theme="re"] .footer { font-family: "PT Mono", monospace; }
+html[data-theme="re"] .node.d0 { color: #f4eee4; background: linear-gradient(160deg, #8f1016, #c4161c); box-shadow: 0 0 40px rgba(196,22,28,.45); }
+html[data-theme="re"] .node.d1, html[data-theme="re"] .node.stage { text-transform: none; font-weight: 700; }
+html[data-theme="re"] .help-pill { color: #0a0809; background: #c9a978; box-shadow: 4px 4px 0 #c4161c; }
+html[data-theme="re"] .help .help-kicker { font-size: 14px; letter-spacing: .25em; text-transform: uppercase; color: #e0302f; }
+
+/* мобильная раскладка сцены */
+@media (max-width: 700px) {
+  .decor-re .re-moon { width: 26vw; right: 8%; }
+}
