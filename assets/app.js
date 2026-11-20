@@ -158,6 +158,7 @@ window.MMFX = (function () {
     if (current && current !== id && defs[current].onLeave) defs[current].onLeave();
     current = id;
     html.dataset.theme = id;
+    if (window.MMSound) window.MMSound.setTheme(id, defs[id].sound);
     if (kickerEl && defs[id].kicker) kickerEl.textContent = defs[id].kicker;
     cardsEl.querySelectorAll(".theme-card").forEach(c => c.classList.toggle("last", c.dataset.themePick === id));
     if (window.mmRefresh) requestAnimationFrame(() => window.mmRefresh());
@@ -168,6 +169,7 @@ window.MMFX = (function () {
     void html.offsetWidth;           // перезапуск CSS-анимаций
     html.classList.add("entered");
     window.MMFX.resetReveal();
+    if (window.MMSound) window.MMSound.play("enter");
     const t = defs[current];
     if (t && t.onEnter && !window.MMFX.reducedMotion) t.onEnter(window.MMFX);
   }
@@ -371,6 +373,7 @@ window.MMFX = (function () {
   function toggle(n) {
     const sx = n.x * cam.s + cam.x, sy = n.y * cam.s + cam.y;
     n.open = !n.open;
+    if (window.MMSound) window.MMSound.play(n.open ? "open" : "close");
     render();
     cam.x = sx - n.x * cam.s;
     cam.y = sy - n.y * cam.s;

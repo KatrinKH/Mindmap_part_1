@@ -10,6 +10,7 @@
   desc: "Ретрофутуризм: плакаты, научный комплекс, роботы и терминалы",
   kicker: "НИИ конфликтологии · отчёт № 1",   // строка над заголовком на главном экране
   css: "assets/themes/atomic/theme.css",
+  sound: "assets/themes/atomic/sound.js",   // звуковая атмосфера темы
 
   // загрузка в стиле старого терминала при входе в тему
   onEnter() {
@@ -34,6 +35,7 @@
       p.textContent = t;
       if (i === lines.length - 1) p.className = "ok";
       out.appendChild(p);
+      if (window.MMSound) window.MMSound.play(i === lines.length - 1 ? "granted" : "type");
     }, 180 + i * 260)));
     const close = () => {
       timers.forEach(clearTimeout);
@@ -70,8 +72,7 @@
   <line x1="0" y1="200" x2="400" y2="200" stroke-dasharray="10 6"/>
   <line x1="200" y1="0" x2="200" y2="400" stroke-dasharray="10 6"/>
   <path d="M8 392 L8 410 M392 392 L392 410 M8 404 H392"/>
-  <text x="170" y="420" fill="#3d8fb0" stroke="none" font-family="PT Mono, monospace" font-size="13">Ø 1:1 · СХЕМА 1-А</text>
-  <text x="208" y="16" fill="#3d8fb0" stroke="none" font-family="PT Mono, monospace" font-size="12">ЯДРО · ЦЕЛЬ НА КОНФЛИКТ</text>
+  <text x="110" y="430" fill="#3d8fb0" stroke="none" font-family="PT Mono, monospace" font-size="13">ЯДРО · ЦЕЛЬ НА КОНФЛИКТ · СХЕМА 1-А</text>
 </svg>
 <svg class="ah-atom" data-depth=".14" data-mouse="5" viewBox="0 0 400 400">
         <g class="orbits" fill="none" stroke="#efe4cc" stroke-width="7">

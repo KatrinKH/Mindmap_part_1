@@ -21,6 +21,7 @@
       <!-- карточки тем создаются автоматически из assets/themes/*/theme.js -->
       <div id="theme-cards" class="theme-cards"></div>
 
+      <button class="start-sound" type="button" data-sound-toggle aria-pressed="false"><svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="snd-label">Включить звук</span></button>
       <p class="start-author">Автор: <b data-author></b></p>
       <p class="start-note">Оформление вдохновлено эстетикой игр и не связано с их правообладателями.</p>
     </div>
@@ -112,10 +113,13 @@
     <p class="footer-text">Дата выполнения: 20 ноября 2026 года.</p>
   </footer>
   <!-- ===== HELP ===== -->
-  <button id="help-open" class="help-pill" type="button" aria-haspopup="dialog" aria-controls="help">
+  <div class="fabs">
+    <button class="sound-pill" type="button" data-sound-toggle aria-pressed="false" title="Включить звук" aria-label="Звук"><svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 4V5L7 9H3Z"/><path d="M16 9l6 6M22 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <button id="help-open" class="help-pill" type="button" aria-haspopup="dialog" aria-controls="help">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="7.3" r="1.5" fill="currentColor"/><rect x="10.8" y="10.2" width="2.4" height="7.5" rx="1.2" fill="currentColor"/></svg>
     <span>О сайте</span>
   </button>
+  </div>
 
   <dialog id="help" class="help" aria-labelledby="help-title">
     <button class="help-close" type="button" aria-label="Закрыть">×</button>
@@ -161,6 +165,7 @@
   <script src="assets/themes/atomic/theme.js"></script>
   <script src="assets/themes/re/theme.js"></script>
 
+  <script src="assets/sound.js"></script>
   <script src="assets/data.js"></script>
   <script src="assets/app.js"></script>
 </body>
