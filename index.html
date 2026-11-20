@@ -5,55 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Конфликты: алгоритм действий — Mindmap</title>
   <meta name="description" content="Mindmap по теории конфликтов: предотвращение, как думать в конфликте, этапы 1–4.">
+  <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="assets/style.css">
+  <!-- стили тем подключаются автоматически по assets/themes/config.js -->
 </head>
-<body>
+<body class="start-open">
+
+  <!-- ===== СТАРТОВЫЙ ЭКРАН: выбор темы ===== -->
+  <div id="start" class="start" role="dialog" aria-modal="true" aria-labelledby="start-title">
+    <div class="start-inner">
+      <p class="start-kicker">Итоговый проект · курс «Переговоры» · часть 1</p>
+      <h1 id="start-title">Конфликты: алгоритм действий</h1>
+      <p class="start-sub">Выберите оформление сайта. Содержание во всех темах одинаковое, тему можно сменить в любой момент кнопкой «Тема» вверху страницы.</p>
+
+      <!-- карточки тем создаются автоматически из assets/themes/*/theme.js -->
+      <div id="theme-cards" class="theme-cards"></div>
+
+      <p class="start-author">Автор: <b data-author></b></p>
+      <p class="start-note">Оформление вдохновлено эстетикой игр и не связано с их правообладателями.</p>
+    </div>
+  </div>
 
   <!-- ===== HERO ===== -->
   <header class="hero">
-    <div class="sky"></div>
-    <div class="sun"></div>
-    <div class="sea"></div>
-    <svg class="palms" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      <g fill="#14061f">
-        <!-- left palm -->
-        <path d="M160 420 C170 330 175 250 205 170 L215 172 C190 250 188 330 182 420 Z"/>
-        <path d="M208 172 C170 140 120 140 70 170 C120 150 165 155 205 178 Z"/>
-        <path d="M208 172 C180 120 140 100 95 105 C145 115 180 140 204 176 Z"/>
-        <path d="M210 170 C220 120 250 95 300 90 C258 108 232 135 214 176 Z"/>
-        <path d="M212 172 C260 150 310 160 345 195 C305 172 262 168 214 178 Z"/>
-        <path d="M209 174 C190 200 170 235 165 275 C182 238 198 210 213 180 Z"/>
-        <path d="M211 174 C240 195 262 225 270 262 C252 230 233 205 210 180 Z"/>
-        <!-- small left palm -->
-        <path d="M330 420 C335 360 340 310 360 260 L367 262 C350 310 347 360 345 420 Z"/>
-        <path d="M362 262 C335 240 300 240 268 258 C302 248 333 252 360 268 Z"/>
-        <path d="M364 260 C372 228 395 210 430 210 C400 222 382 240 367 266 Z"/>
-        <path d="M365 262 C395 250 428 258 450 282 C424 268 396 266 366 268 Z"/>
-        <path d="M362 264 C345 282 335 305 332 330 C344 306 354 290 366 270 Z"/>
-        <!-- right palm -->
-        <path d="M1250 420 C1240 320 1232 240 1200 150 L1190 153 C1218 240 1225 320 1232 420 Z"/>
-        <path d="M1196 152 C1235 118 1290 116 1345 148 C1292 128 1243 134 1200 158 Z"/>
-        <path d="M1195 150 C1222 98 1265 78 1312 84 C1260 95 1222 120 1198 156 Z"/>
-        <path d="M1193 150 C1180 98 1150 72 1098 68 C1142 86 1170 114 1189 156 Z"/>
-        <path d="M1192 152 C1140 130 1088 140 1052 176 C1094 152 1138 148 1190 158 Z"/>
-        <path d="M1195 154 C1215 182 1236 218 1240 258 C1224 222 1208 192 1192 160 Z"/>
-        <path d="M1193 154 C1162 176 1140 208 1132 246 C1150 214 1170 188 1196 160 Z"/>
-        <!-- skyline -->
-        <path fill="#22082f" d="M480 420 V360 h30 v-40 h20 v40 h18 v-70 h26 v70 h14 v-30 h22 v30 h20 v-90 h12 v-20 h10 v20 h12 v90 h24 v-50 h28 v50 h16 v-110 h30 v110 h18 v-40 h22 v40 h20 v-64 h26 v64 h14 v-26 h20 v26 h22 v-80 h18 v80 h26 v-44 h24 v44 h30 V420 Z"/>
-      </g>
-    </svg>
+    <!-- сцены тем подставляются сюда автоматически -->
+    <div id="decor-slot"></div>
 
     <nav class="topnav">
       <span class="brand">ЦУ · Переговоры</span>
-      <div class="links">
+      <div class="navlinks">
         <a href="#ladder">Лестница</a>
         <a href="#algo">Алгоритм</a>
         <a href="#map">Mindmap</a>
+        <button id="theme-open" class="theme-btn" type="button" title="Сменить оформление"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0 0 20c1.4 0 2.2-1 2.2-2.1 0-.6-.2-1-.6-1.5-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.3A4.6 4.6 0 0 0 22 10.5C22 5.8 17.5 2 12 2Zm-5.5 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg><span>Тема</span></button>
       </div>
     </nav>
 
     <div class="hero-text">
-      <p class="script">Итоговый проект · часть 1</p>
+      <p class="kicker" id="kicker">Итоговый проект · часть 1</p>
       <h1><span>Конфликты</span><span class="outline">Алгоритм действий</span></h1>
       <p class="lead">Mindmap по теории курса: как предотвратить конфликт, как думать, когда он начался, и что делать на каждом из четырёх этапов.</p>
       <a class="btn" href="#map">Открыть mindmap ↓</a>
@@ -117,10 +106,11 @@
   </section>
 
   <footer class="footer">
-    <p>Курс «Переговоры» · Центральный университет · 2026</p>
-    <p class="muted">Mindmap построен по материалам курса (Soft Skills Lab). Визуальный стиль вдохновлён эстетикой неонового Майами.</p>
+    <p class="footer-title">Итоговый проект. Часть 1: Mindmap по конфликтам</p>
+    <p>Курс «Переговоры» (осень 2026)</p>
+    <p class="footer-text">Выполнила <b data-author></b>, студентка 1 курса магистратуры Центрального университета по направлению «Бэкенд-разработка».</p>
+    <p class="footer-text">Дата выполнения: 20 ноября 2026 года.</p>
   </footer>
-
   <!-- ===== HELP ===== -->
   <button id="help-open" class="help-pill" type="button" aria-haspopup="dialog" aria-controls="help">
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="7.3" r="1.5" fill="currentColor"/><rect x="10.8" y="10.2" width="2.4" height="7.5" rx="1.2" fill="currentColor"/></svg>
@@ -129,7 +119,7 @@
 
   <dialog id="help" class="help" aria-labelledby="help-title">
     <button class="help-close" type="button" aria-label="Закрыть">×</button>
-    <p class="script">справка</p>
+    <p class="help-kicker">справка</p>
     <h2 id="help-title">Зачем этот сайт</h2>
     <p>Это первая часть итогового проекта курса «Переговоры»: mindmap, который собирает всю теорию блока «Конфликты» в одну структуру. Карта работает как алгоритм действий: как предотвратить конфликт, как проанализировать фразу собеседника, какую цель поставить и какой этап и приём выбрать.</p>
     <p>Все понятия и шаблоны взяты из материалов курса.</p>
@@ -150,6 +140,9 @@
       <li><b>«На весь экран»</b> удобно включать на защите.</li>
     </ul>
 
+    <h3 class="theme-help">Оформление</h3>
+    <p class="theme-help">Доступные темы: <span id="theme-list"></span>. Выбрать другую можно кнопкой <b>«Тема»</b> в верхнем меню. Содержание во всех темах одинаковое.</p>
+
     <h3>Цвета узлов</h3>
     <ul class="help-legend">
       <li><em class="lg tpl"></em>шаблон фразы или пример</li>
@@ -157,7 +150,16 @@
       <li><em class="lg out"></em>выход с этапа</li>
       <li><em class="lg err"></em>типичная ошибка</li>
     </ul>
+
+    <p class="help-author">Автор: <b data-author></b></p>
   </dialog>
+
+  <!-- ТЕМЫ: настройка + по одному файлу на тему.
+       Удалите строку темы, чтобы вырезать её из сайта совсем. -->
+  <script src="assets/themes/config.js"></script>
+  <script src="assets/themes/gta/theme.js"></script>
+  <script src="assets/themes/atomic/theme.js"></script>
+  <script src="assets/themes/re/theme.js"></script>
 
   <script src="assets/data.js"></script>
   <script src="assets/app.js"></script>
