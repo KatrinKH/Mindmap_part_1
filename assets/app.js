@@ -347,7 +347,111 @@ window.MMFX = (function () {
   const cam = { x: 40, y: 40, s: 1 };
   function apply() {
     canvas.style.transform = `translate(${cam.x}px, ${cam.y}px) scale(${cam.s})`;
+    drawMini();
   }
+
+  // ---------- мини-карта ----------
+  // обзор всей структуры с рамкой «вы здесь»; клик или перетаскивание переносит камеру.
+  // вид задают темы: переменная --mm-mode в theme.css (radar / plan / dark)
+  const mini = document.createElement("div");
+  mini.className = "minimap";
+  mini.setAttribute("role", "img");
+  mini.setAttribute("aria-label", "Мини-карта: нажмите, чтобы перейти к нужному месту");
+  mini.innerHTML = '<canvas></canvas><span class="mm-frame"></span>';
+  viewport.appendChild(mini);
+  const mctx = mini.querySelector("canvas").getContext("2d");
+  let miniQueued = false, miniMap = null;
+  try { if (localStorage.getItem("mindmap-minimap") === "off") mini.classList.add("hidden"); } catch (e) { /* нет хранилища */ }
+
+  function cssColor(v, fallback) {
+    const m = /var\((--[\w-]+)\)/.exec(v || "");
+    const c = m ? getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim() : v;
+    return c || fallback;
+  }
+  function drawMini() {
+    if (miniQueued) return;
+    miniQueued = true;
+    requestAnimationFrame(() => { miniQueued = false; paintMini(); });
+  }
+  function paintMini() {
+    if (mini.classList.contains("hidden") || !bounds.w) return;
+    const st = getComputedStyle(mini);
+    const mode = st.getPropertyValue("--mm-mode").trim() || "plan";
+    const W = mini.clientWidth, H = mini.clientHeight, dpr = window.devicePixelRatio || 1;
+    const cv = mctx.canvas;
+    if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    mctx.clearRect(0, 0, W, H);
+    // радар круглый — вписываем карту в квадрат внутри круга
+    const pad = mode === "radar" ? W * .17 : 12;
+    const k = Math.min((W - pad * 2) / bounds.w, (H - pad * 2) / bounds.h);
+    const ox = (W - bounds.w * k) / 2, oy = (H - bounds.h * k) / 2;
+    miniMap = { k, ox, oy };
+    const vis = visible(root, []);
+    // связи
+    mctx.globalAlpha = mode === "dark" ? .25 : .4;
+    mctx.lineWidth = 1;
+    vis.forEach(n => {
+      if (!n.parent) return;
+      const p = n.parent;
+      mctx.strokeStyle = cssColor(n.branch, "#888");
+      mctx.beginPath();
+      mctx.moveTo(ox + (p.x + p.w) * k, oy + (p.y + p.h / 2) * k);
+      mctx.lineTo(ox + n.x * k, oy + (n.y + n.h / 2) * k);
+      mctx.stroke();
+    });
+    // узлы
+    const hitColor = cssColor("var(--a3)", "#fff");
+    vis.forEach(n => {
+      const hit = n.el && n.el.classList.contains("hit");
+      mctx.globalAlpha = hit ? 1 : (mode === "dark" ? .55 : .9);
+      mctx.fillStyle = hit ? hitColor : cssColor(n.branch, "#aaa");
+      mctx.fillRect(ox + n.x * k, oy + n.y * k, Math.max(2, n.w * k), Math.max(1.5, n.h * k));
+    });
+    mctx.globalAlpha = 1;
+    // рамка «вы здесь»
+    const vx = ox + (-cam.x / cam.s) * k, vy = oy + (-cam.y / cam.s) * k;
+    const vw = viewport.clientWidth / cam.s * k, vh = viewport.clientHeight / cam.s * k;
+    const view = st.getPropertyValue("--mm-view").trim() || "#fff";
+    if (mode === "dark") {
+      // всё вне рамки тонет в темноте, как под фонарём
+      const cx = vx + vw / 2, cy = vy + vh / 2, r = Math.max(vw, vh) * .9 + 10;
+      const g = mctx.createRadialGradient(cx, cy, r * .35, cx, cy, r * 1.3);
+      g.addColorStop(0, "rgba(0,0,0,0)");
+      g.addColorStop(1, "rgba(0,0,0,.82)");
+      mctx.fillStyle = g;
+      mctx.fillRect(0, 0, W, H);
+    }
+    mctx.strokeStyle = view;
+    mctx.lineWidth = 1.6;
+    mctx.fillStyle = st.getPropertyValue("--mm-view-fill").trim() || "rgba(255,255,255,.08)";
+    mctx.fillRect(vx, vy, vw, vh);
+    mctx.strokeRect(vx, vy, vw, vh);
+    if (mode === "radar") {
+      // точка «игрока» в центре рамки
+      mctx.fillStyle = view;
+      mctx.beginPath(); mctx.arc(vx + vw / 2, vy + vh / 2, 3.5, 0, Math.PI * 2); mctx.fill();
+    }
+  }
+  // переход по клику / перетаскиванию на мини-карте
+  function miniGo(e) {
+    if (!miniMap) return;
+    const r = mini.getBoundingClientRect();
+    const x = (e.clientX - r.left - miniMap.ox) / miniMap.k;
+    const y = (e.clientY - r.top - miniMap.oy) / miniMap.k;
+    cam.x = viewport.clientWidth / 2 - x * cam.s;
+    cam.y = viewport.clientHeight / 2 - y * cam.s;
+    apply();
+  }
+  let miniDrag = false;
+  mini.addEventListener("pointerdown", e => {
+    e.stopPropagation();           // не начинать перетаскивание большой карты
+    miniDrag = true; mini.setPointerCapture(e.pointerId); miniGo(e);
+  });
+  mini.addEventListener("pointermove", e => { if (miniDrag) miniGo(e); });
+  mini.addEventListener("pointerup", () => { miniDrag = false; });
+  mini.addEventListener("pointercancel", () => { miniDrag = false; });
+  mini.addEventListener("wheel", e => e.stopPropagation(), { passive: true });
   function fit() {
     const vw = viewport.clientWidth, vh = viewport.clientHeight, pad = 60;
     cam.s = Math.min((vw - pad) / bounds.w, (vh - pad) / bounds.h, 1.1);
@@ -437,6 +541,12 @@ window.MMFX = (function () {
     if (act === "expand") { all.forEach(n => n.open = true); render(); fit(); }
     if (act === "collapse") { all.forEach(n => n.open = n.depth < 1); clearSearch(); render(); fit(); }
     if (act === "fit") fit();
+    if (act === "minimap") {
+      const off = mini.classList.toggle("hidden");
+      e.target.setAttribute("aria-pressed", String(!off));
+      try { localStorage.setItem("mindmap-minimap", off ? "off" : "on"); } catch (err) { /* нет хранилища */ }
+      drawMini();
+    }
     if (act === "zoomin") zoomAt(1.25, vw, vh);
     if (act === "zoomout") zoomAt(0.8, vw, vh);
     if (act === "full") {
@@ -449,6 +559,7 @@ window.MMFX = (function () {
   // ---------- поиск ----------
   function clearSearch() {
     search.value = "";
+    drawMini();
     canvas.classList.remove("searching");
     all.forEach(n => n.el && n.el.classList.remove("hit"));
   }
@@ -463,6 +574,7 @@ window.MMFX = (function () {
       hits.forEach(n => { let p = n.parent; while (p) { p.open = true; p = p.parent; } });
       render();
       hits.forEach(n => n.el.classList.add("hit"));
+      drawMini();
       canvas.classList.toggle("searching", hits.length > 0);
       if (hits.length) { cam.s = Math.max(cam.s, 0.9); apply(); centerOn(hits[0]); }
     }, 220);

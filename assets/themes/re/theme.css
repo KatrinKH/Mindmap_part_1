@@ -215,3 +215,20 @@ html[data-theme="re"] .reveal.in { transform: none; filter: none; }
   .decor-re .re-moon { width: 18vw; right: 10%; }
   html[data-theme="re"] h1 { letter-spacing: .12em; }
 }
+
+/* ================= МИНИ-КАРТА: тусклая схема особняка ================= */
+html[data-theme="re"] .minimap {
+  --mm-mode: dark;               /* всё вне рамки тонет в темноте */
+  --mm-view: #c4161c;
+  --mm-view-fill: rgba(196, 22, 28, .08);
+  width: 230px; height: 150px;
+  background: #08090b;
+  border: 1px solid #2a2c31;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .8);
+}
+html[data-theme="re"] .minimap .mm-frame {
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: re-grain .9s steps(4) infinite;
+}
+html[data-theme="re"] .minimap::before { content: "Схема · вы здесь"; color: #6c6d72; letter-spacing: .3em; }

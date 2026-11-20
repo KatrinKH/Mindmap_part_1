@@ -188,3 +188,27 @@ html[data-theme="gta"] .reveal {
 html[data-theme="gta"] .sec-sub.reveal { transform: translateY(30px) rotate(-6deg); }
 html[data-theme="gta"] .sec-sub.reveal.in { transform: rotate(-1.5deg); }
 html[data-theme="gta"] .reveal.in { transform: none; }
+
+/* ================= МИНИ-КАРТА: круглый радар ================= */
+html[data-theme="gta"] .minimap {
+  --mm-mode: radar;
+  --mm-view: #19e3d1;
+  --mm-view-fill: rgba(25, 227, 209, .12);
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(20, 50, 70, .85), rgba(11, 4, 24, .92) 70%);
+  border: 3px solid #0b0418;
+  box-shadow: 0 0 0 3px #ff2e88, 0 0 24px rgba(255, 46, 136, .55);
+  overflow: hidden;
+}
+html[data-theme="gta"] .minimap canvas { border-radius: 50%; }
+/* вращающийся луч радара и кольца */
+html[data-theme="gta"] .minimap .mm-frame {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 32%, rgba(25,227,209,.14) 32.5%, transparent 33.5%, transparent 65%, rgba(25,227,209,.14) 65.5%, transparent 66.5%),
+    conic-gradient(from 0deg, rgba(25, 227, 209, .28), transparent 22%);
+  animation: gta-radar 4s linear infinite;
+}
+@keyframes gta-radar { to { transform: rotate(360deg); } }
+html[data-theme="gta"] .minimap::before { content: "Радар"; left: 50%; top: auto; bottom: 10px; transform: translateX(-50%); color: #ffd23f; text-shadow: 0 0 6px #ff2e88; }
+@media (max-width: 600px) { html[data-theme="gta"] .minimap { width: 120px; height: 120px; } }
