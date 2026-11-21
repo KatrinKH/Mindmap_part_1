@@ -41,6 +41,11 @@
   <g stroke="#ffc07a" stroke-opacity=".35"><line x1="0" y1="160" x2="320" y2="160"/><line x1="0" y1="172" x2="320" y2="172"/><line x1="0" y1="186" x2="320" y2="186"/></g>
   <g fill="#14061f"><path d="M44 152 C46 120 48 96 58 70 L62 71 C54 98 52 122 52 152 Z"/><path d="M60 72 C46 60 28 60 12 70 C28 64 44 66 59 76 Z"/><path d="M60 72 C66 54 80 46 98 46 C82 54 72 62 62 76 Z"/><path d="M60 72 C78 66 96 70 108 84 C94 76 78 74 62 76 Z"/><path d="M59 73 C50 84 44 98 44 112 C50 98 56 88 62 78 Z"/>
   <path d="M276 152 C272 118 268 96 256 66 L252 67 C262 98 266 120 268 152 Z"/><path d="M254 68 C268 56 286 56 304 66 C288 60 270 62 256 72 Z"/><path d="M254 68 C246 50 232 42 214 42 C230 50 242 58 252 72 Z"/><path d="M254 69 C238 62 220 66 208 80 C222 72 238 70 252 72 Z"/></g>
+  <defs><linearGradient id="tg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#ffe680"/><stop offset="1" stop-color="#ffb347"/></linearGradient>
+  <filter id="tgglow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <text x="25" y="41" font-family="Oswald, sans-serif" font-weight="700" font-size="30" letter-spacing="1.5" fill="#ff2e88">КОНФЛИКТ</text>
+  <text x="22" y="38" font-family="Oswald, sans-serif" font-weight="700" font-size="30" letter-spacing="1.5" fill="url(#tg3)" stroke="#0b0418" stroke-width=".8" filter="url(#tgglow)">КОНФЛИКТ</text>
+  <rect x="22" y="46" width="44" height="3" fill="#19e3d1"/>
 </svg>
 `,
 

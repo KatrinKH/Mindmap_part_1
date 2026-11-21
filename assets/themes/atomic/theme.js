@@ -75,7 +75,7 @@
   <rect x="-10" y="150" width="340" height="22" fill="#d7263d" transform="rotate(-3 160 160)"/>
   <rect y="176" width="320" height="24" fill="#1c1a17"/>
   <text x="22" y="70" font-family="Russo One, sans-serif" font-size="30" fill="#1c1a17">КОНФЛИКТ</text>
-  <rect x="22" y="80" width="96" height="16" fill="#1c1a17"/>
+  <rect x="22" y="78" width="44" height="3" fill="#1c1a17"/>
 </svg>
 `,
 
