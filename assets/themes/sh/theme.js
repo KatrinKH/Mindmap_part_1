@@ -36,6 +36,7 @@
   <linearGradient id="ts3" x1="0" y1="0" x2="0" y2="1"><stop offset=".62" stop-color="#d6d4cf" stop-opacity="0"/><stop offset="1" stop-color="#d6d4cf" stop-opacity=".55"/></linearGradient>
   <filter id="tsb"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
   <rect width="320" height="200" fill="url(#ts1)"/>
+  <g opacity=".35" filter="url(#tsb)" stroke="#6f6c66" fill="none" stroke-width="1.4"><circle cx="250" cy="58" r="30"/><circle cx="250" cy="58" r="22"/><line x1="250" y1="58" x2="280.0" y2="58.0"/><line x1="250" y1="58" x2="276.0" y2="73.0"/><line x1="250" y1="58" x2="265.0" y2="84.0"/><line x1="250" y1="58" x2="250.0" y2="88.0"/><line x1="250" y1="58" x2="235.0" y2="84.0"/><line x1="250" y1="58" x2="224.0" y2="73.0"/><line x1="250" y1="58" x2="220.0" y2="58.0"/><line x1="250" y1="58" x2="224.0" y2="43.0"/><line x1="250" y1="58" x2="235.0" y2="32.0"/><line x1="250" y1="58" x2="250.0" y2="28.0"/><line x1="250" y1="58" x2="265.0" y2="32.0"/><line x1="250" y1="58" x2="276.0" y2="43.0"/><path d="M250 58 L236 112 M250 58 L264 112" stroke-width="2"/></g>
   <path d="M150 112 L170 112 L260 200 L60 200 Z" fill="#8f8c86"/>
   <path d="M159 116 L161 116 L163 200 L157 200 Z" fill="#c9c6bf" opacity=".6"/>
   <g fill="#5a5752"><rect x="110" y="70" width="3" height="50"/><rect x="100" y="74" width="23" height="2"/><rect x="62" y="40" width="4" height="100"/><rect x="48" y="48" width="32" height="2.5"/><rect x="207" y="70" width="3" height="50"/><rect x="198" y="74" width="23" height="2"/><rect x="254" y="40" width="4" height="100"/><rect x="241" y="48" width="32" height="2.5"/></g>
@@ -46,6 +47,8 @@
   <circle cx="160" cy="79" r="2.4" fill="#2a2826"/><circle cx="160" cy="86" r="2.6" fill="#e0a43a"/><circle cx="160" cy="93" r="2.4" fill="#2a2826"/>
   <circle cx="160" cy="86" r="9" fill="#e0a43a" opacity=".22" filter="url(#tsb)"/>
   <g fill="#3f3c38" opacity=".75"><ellipse cx="150" cy="186" rx="5" ry="8"/><ellipse cx="170" cy="168" rx="4.4" ry="7"/><ellipse cx="152" cy="152" rx="3.8" ry="6"/><ellipse cx="167" cy="139" rx="3.2" ry="5"/><ellipse cx="154" cy="128" rx="2.7" ry="4.2"/><ellipse cx="165" cy="120" rx="2.2" ry="3.4"/></g>
+  <g transform="translate(214 150) scale(.42)" opacity=".85"><path d="M8 66 L14 46 L46 40 L70 20 L140 18 L170 40 L206 46 L212 66 Z" fill="#4a4743"/><path d="M76 26 L104 24 L104 40 L62 42 Z M110 24 L136 24 L156 40 L110 40 Z" fill="#9a978f" opacity=".6"/><circle cx="52" cy="68" r="15" fill="#33312e"/><circle cx="168" cy="68" r="15" fill="#33312e"/><circle cx="12" cy="54" r="6" fill="#f2e6c4"/></g>
+  <path d="M219 172 L150 160 L150 188 Z" fill="#f2e6c4" opacity=".28" filter="url(#tsb)"/>
   <rect width="320" height="200" fill="url(#ts2)" opacity=".85"/>
   <rect width="320" height="200" fill="url(#ts3)"/>
   <text x="22" y="38" font-family="PT Serif, serif" font-size="20" letter-spacing="7" fill="#3b3936">КОНФЛИКТ</text>

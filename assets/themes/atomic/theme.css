@@ -134,20 +134,20 @@ html[data-theme="atomic"] .kicker {
   font: 400 15px "PT Mono", monospace; letter-spacing: .2em; text-transform: uppercase;
   padding: 6px 12px; color: #efe4cc; background: #1c1a17;
 }
-html[data-theme="atomic"] h1 { line-height: 1; font-size: clamp(44px, 7.4vw, 108px); }
-html[data-theme="atomic"] h1 > span:first-child {
+html[data-theme="atomic"] .hero h1 { line-height: 1; font-size: clamp(44px, 7.4vw, 108px); }
+html[data-theme="atomic"] .hero h1 > span:first-child {
   position: relative; width: fit-content;
   color: #d7263d; margin-top: 14px;
   text-shadow: 5px 5px 0 #1c1a17;
 }
 /* глитч заголовка */
-html[data-theme="atomic"] h1 > span:first-child::before,
-html[data-theme="atomic"] h1 > span:first-child::after {
+html[data-theme="atomic"] .hero h1 > span:first-child::before,
+html[data-theme="atomic"] .hero h1 > span:first-child::after {
   content: attr(data-text); position: absolute; inset: 0;
   text-shadow: none; pointer-events: none; opacity: 0;
 }
-html[data-theme="atomic"] h1 > span:first-child::before { color: #6cc4e0; animation: ah-glitch-a 5s steps(1) infinite 2.2s; }
-html[data-theme="atomic"] h1 > span:first-child::after  { color: #1c1a17; animation: ah-glitch-b 5s steps(1) infinite 2.2s; }
+html[data-theme="atomic"] .hero h1 > span:first-child::before { color: #6cc4e0; animation: ah-glitch-a 5s steps(1) infinite 2.2s; }
+html[data-theme="atomic"] .hero h1 > span:first-child::after  { color: #1c1a17; animation: ah-glitch-b 5s steps(1) infinite 2.2s; }
 @keyframes ah-glitch-a {
   0%, 89%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
   90% { opacity: .9; transform: translate(-6px, 2px); clip-path: inset(10% 0 55% 0); }
@@ -161,7 +161,7 @@ html[data-theme="atomic"] h1 > span:first-child::after  { color: #1c1a17; animat
   93% { opacity: .85; transform: translate(-5px, 2px); clip-path: inset(5% 0 75% 0); }
   95% { opacity: 0; }
 }
-html[data-theme="atomic"] h1 .outline {
+html[data-theme="atomic"] .hero h1 .outline {
   display: inline-block; width: fit-content;
   margin-top: 14px; padding: 6px 14px;
   font-size: .36em; color: #1c1a17;
@@ -173,14 +173,14 @@ html[data-theme="atomic"] .btn:hover { box-shadow: 9px 9px 0 #1c1a17; }
 html[data-theme="atomic"] .hero::after { height: 0; }
 
 /* механическое появление первого экрана (после терминала) */
-html.entered[data-theme="atomic"] h1 > span:first-child .ch { animation: ah-drop .5s steps(4) both; animation-delay: calc(2.3s + var(--i) * 50ms); }
+html.entered[data-theme="atomic"] .hero h1 > span:first-child .ch { animation: ah-drop .5s steps(4) both; animation-delay: calc(2.3s + var(--i) * 50ms); }
 @keyframes ah-drop { from { opacity: 0; transform: translateY(-60%); } }
 html.entered[data-theme="atomic"] .kicker,
-html.entered[data-theme="atomic"] h1 .outline,
+html.entered[data-theme="atomic"] .hero h1 .outline,
 html.entered[data-theme="atomic"] .lead,
 html.entered[data-theme="atomic"] .btn { animation: ah-wipe .6s steps(6) both; }
 html.entered[data-theme="atomic"] .kicker { animation-delay: 2.1s; }
-html.entered[data-theme="atomic"] h1 .outline { animation-delay: 2.8s; }
+html.entered[data-theme="atomic"] .hero h1 .outline { animation-delay: 2.8s; }
 html.entered[data-theme="atomic"] .lead { animation-delay: 3s; }
 html.entered[data-theme="atomic"] .btn { animation-delay: 3.2s; }
 @keyframes ah-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }

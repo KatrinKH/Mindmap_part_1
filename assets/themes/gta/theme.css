@@ -113,13 +113,13 @@ html[data-theme="gta"] .kicker {
   transform: rotate(-4deg); transform-origin: left;
   text-shadow: 0 0 18px rgba(255, 46, 136, .9), 0 0 2px #fff;
 }
-html[data-theme="gta"] h1 > span:first-child { filter: drop-shadow(4px 4px 0 #0b0418) drop-shadow(0 0 24px rgba(255,46,136,.6)); }
-html[data-theme="gta"] h1 > span:first-child .ch {
+html[data-theme="gta"] .hero h1 > span:first-child { filter: drop-shadow(4px 4px 0 #0b0418) drop-shadow(0 0 24px rgba(255,46,136,.6)); }
+html[data-theme="gta"] .hero h1 > span:first-child .ch {
   background: linear-gradient(180deg, #fff 0%, #ffe3f1 45%, #ff9ccd 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none;
 }
-html[data-theme="gta"] h1 .outline .ch { color: transparent; -webkit-text-stroke: 2px #ffd23f; text-shadow: none; }
-html[data-theme="gta"] h1 .outline { filter: drop-shadow(3px 3px 0 rgba(11,4,24,.85)) drop-shadow(0 0 10px rgba(255, 210, 63, .7)); }
+html[data-theme="gta"] .hero h1 .outline .ch { color: transparent; -webkit-text-stroke: 2px #ffd23f; text-shadow: none; }
+html[data-theme="gta"] .hero h1 .outline { filter: drop-shadow(3px 3px 0 rgba(11,4,24,.85)) drop-shadow(0 0 10px rgba(255, 210, 63, .7)); }
 html[data-theme="gta"] .btn {
   color: #0b0418; text-shadow: none;
   background: linear-gradient(90deg, #ffd23f, #ff8a3d);
@@ -129,8 +129,8 @@ html[data-theme="gta"] .btn {
 html[data-theme="gta"] .btn:hover { transform: skewX(-10deg) translate(-3px, -3px); box-shadow: 9px 9px 0 #ff2e88, 0 0 30px rgba(255, 210, 63, .6); }
 
 /* динамичное появление первого экрана */
-html.entered[data-theme="gta"] h1 .ch { animation: gta-char .75s cubic-bezier(.2,.9,.25,1.15) both; animation-delay: calc(.55s + var(--i) * 45ms); }
-html.entered[data-theme="gta"] h1 .outline .ch { animation-delay: calc(1s + var(--i) * 25ms); }
+html.entered[data-theme="gta"] .hero h1 .ch { animation: gta-char .75s cubic-bezier(.2,.9,.25,1.15) both; animation-delay: calc(.55s + var(--i) * 45ms); }
+html.entered[data-theme="gta"] .hero h1 .outline .ch { animation-delay: calc(1s + var(--i) * 25ms); }
 @keyframes gta-char { from { opacity: 0; transform: translateX(-60px) skewX(-25deg); filter: blur(8px); } }
 html.entered[data-theme="gta"] .kicker { animation: gta-pop .6s cubic-bezier(.3,1.6,.5,1) .4s both; }
 @keyframes gta-pop { from { opacity: 0; transform: rotate(-4deg) scale(.6); } }

@@ -201,19 +201,19 @@ html[data-theme="sh"] .kicker {
   font: 400 clamp(12px, 1.3vw, 14px) "PT Mono", monospace; letter-spacing: .3em; text-transform: uppercase;
   color: #6e1a12;
 }
-html[data-theme="sh"] h1 { font-weight: 400; letter-spacing: .22em; line-height: 1; font-size: clamp(38px, 7vw, 100px); }
-html[data-theme="sh"] h1 > span:first-child {
+html[data-theme="sh"] .hero h1 { font-weight: 400; letter-spacing: .22em; line-height: 1; font-size: clamp(38px, 7vw, 100px); }
+html[data-theme="sh"] .hero h1 > span:first-child {
   color: #2c2a27;
   text-shadow: 0 0 18px rgba(240, 238, 232, .9), 0 0 2px rgba(240, 238, 232, .8);
 }
 /* буквы иногда тонут в тумане */
-html[data-theme="sh"] h1 > span:first-child .ch { animation: sh-fade 9s ease-in-out infinite; animation-delay: calc(var(--i) * -1.7s); }
+html[data-theme="sh"] .hero h1 > span:first-child .ch { animation: sh-fade 9s ease-in-out infinite; animation-delay: calc(var(--i) * -1.7s); }
 @keyframes sh-fade { 0%, 70%, 100% { filter: none; opacity: 1; } 82% { filter: blur(4px); opacity: .5; } }
-html[data-theme="sh"] h1 .outline {
+html[data-theme="sh"] .hero h1 .outline {
   font: 400 max(.2em, 12px) "PT Mono", monospace; letter-spacing: .55em; margin-top: 22px;
   color: #6e1a12;
 }
-html[data-theme="sh"] h1 .outline::before { content: ""; display: inline-block; width: 40px; height: 1px; margin-right: 14px; vertical-align: middle; background: #6e1a12; }
+html[data-theme="sh"] .hero h1 .outline::before { content: ""; display: inline-block; width: 40px; height: 1px; margin-right: 14px; vertical-align: middle; background: #6e1a12; }
 html[data-theme="sh"] .lead { color: #3a3733; font-weight: 500; max-width: 500px; text-shadow: 0 0 12px rgba(240, 238, 232, .9); }
 html[data-theme="sh"] .btn {
   font-family: "PT Mono", monospace; letter-spacing: .24em; font-size: 14px;
@@ -224,8 +224,8 @@ html[data-theme="sh"] .btn:hover { color: #e2ded5; background: #6e1a12; border-c
 html[data-theme="sh"] .hero::after { height: 160px; }
 
 /* появление из тумана */
-html.entered[data-theme="sh"] h1 > span:first-child .ch { animation: sh-emerge 2.2s ease both, sh-fade 9s ease-in-out 4s infinite; animation-delay: calc(1.4s + var(--i) * 140ms), calc(4s + var(--i) * -1.7s); }
-html.entered[data-theme="sh"] h1 .outline .ch { animation: sh-emerge 1.6s ease both; animation-delay: calc(2.8s + var(--i) * 35ms); }
+html.entered[data-theme="sh"] .hero h1 > span:first-child .ch { animation: sh-emerge 2.2s ease both, sh-fade 9s ease-in-out 4s infinite; animation-delay: calc(1.4s + var(--i) * 140ms), calc(4s + var(--i) * -1.7s); }
+html.entered[data-theme="sh"] .hero h1 .outline .ch { animation: sh-emerge 1.6s ease both; animation-delay: calc(2.8s + var(--i) * 35ms); }
 @keyframes sh-emerge { from { opacity: 0; filter: blur(14px); } }
 html.entered[data-theme="sh"] .kicker { animation: sh-in 1.6s ease 1s both; }
 html.entered[data-theme="sh"] .lead { animation: sh-in 2s ease 3.2s both; }
@@ -322,5 +322,5 @@ html.sh-close .decor-sh .sh-radio .bars i { animation-duration: .2s; }
   .decor-sh .sh-radio .lbl { display: none; }
   .decor-sh .sh-signal { display: none; }
   .decor-sh .sh-car { right: -6%; height: 9%; }
-  html[data-theme="sh"] h1 { letter-spacing: .12em; }
+  html[data-theme="sh"] .hero h1 { letter-spacing: .12em; }
 }
