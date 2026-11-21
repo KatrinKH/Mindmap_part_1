@@ -128,13 +128,16 @@ window.MMEggs = (function () {
   // латинская раскладка → русская, чтобы слово срабатывало без переключения языка
   const LAT = "`qwertyuiop[]asdfghjkl;'zxcvbnm,.", CYR = "ёйцукенгшщзхъфывапролджэячсмитьбю";
   let buf = "";
-  const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "KeyB", "KeyA"];
+  const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight"];
   let kpos = 0;
   document.addEventListener("keydown", e => {
     const t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
-    // ---------- 4. код ↑↑↓↓←→←→BA ----------
-    kpos = (e.code === KONAMI[kpos]) ? kpos + 1 : (e.code === KONAMI[0] ? 1 : 0);
+    // ---------- 4. код ↑↑↓↓←→←→ ----------
+    // лишнее «↑» в начале не сбрасывает код: ↑↑↑↓↓… тоже сработает
+    if (e.code === KONAMI[kpos]) kpos++;
+    else if (e.code === "ArrowUp") kpos = kpos === 2 ? 2 : 1;
+    else kpos = 0;
     if (kpos === KONAMI.length) {
       kpos = 0;
       wordRain(["Эмоции", "Границы", "Декодирование", "Цель на конфликт", "Я-ощущение", "Сепарация", "Эскалация", "Право на отказ", "Аудит негатива", "Манипуляция", "Переговоры", "Факт", "Потребность"]);
