@@ -128,15 +128,16 @@ window.MMEggs = (function () {
   // латинская раскладка → русская, чтобы слово срабатывало без переключения языка
   const LAT = "`qwertyuiop[]asdfghjkl;'zxcvbnm,.", CYR = "ёйцукенгшщзхъфывапролджэячсмитьбю";
   let buf = "";
-  const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight"];
+  // e.code — физическая клавиша, поэтому код работает и в русской раскладке (Ц Ц Ы Ы Ф В Ф В)
+  const KONAMI = ["KeyW", "KeyW", "KeyS", "KeyS", "KeyA", "KeyD", "KeyA", "KeyD"];
   let kpos = 0;
   document.addEventListener("keydown", e => {
     const t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
-    // ---------- 4. код ↑↑↓↓←→←→ ----------
-    // лишнее «↑» в начале не сбрасывает код: ↑↑↑↓↓… тоже сработает
+    // ---------- 4. код W W S S A D A D ----------
+    // лишнее «W» в начале не сбрасывает код: W W W S S… тоже сработает
     if (e.code === KONAMI[kpos]) kpos++;
-    else if (e.code === "ArrowUp") kpos = kpos === 2 ? 2 : 1;
+    else if (e.code === "KeyW") kpos = kpos === 2 ? 2 : 1;
     else kpos = 0;
     if (kpos === KONAMI.length) {
       kpos = 0;
