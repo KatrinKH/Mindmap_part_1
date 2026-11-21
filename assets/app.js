@@ -354,7 +354,7 @@ window.MMFX = (function () {
 
   // ---------- мини-карта ----------
   // обзор всей структуры с рамкой «вы здесь»; клик или перетаскивание переносит камеру.
-  // вид задают темы: переменная --mm-mode в theme.css (radar / plan / dark)
+  // вид задают темы: переменная --mm-mode в theme.css (radar / plan / dark / fog)
   const mini = document.createElement("div");
   mini.className = "minimap";
   mini.setAttribute("role", "img");
@@ -417,7 +417,7 @@ window.MMFX = (function () {
     miniMap = { k, ox, oy };
     const vis = visible(root, []);
     // связи
-    mctx.globalAlpha = mode === "dark" ? .25 : .4;
+    mctx.globalAlpha = mode === "dark" || mode === "fog" ? .25 : .4;
     mctx.lineWidth = 1;
     vis.forEach(n => {
       if (!n.parent) return;
@@ -432,7 +432,7 @@ window.MMFX = (function () {
     const hitColor = cssColor("var(--a3)", "#fff");
     vis.forEach(n => {
       const hit = n.el && n.el.classList.contains("hit");
-      mctx.globalAlpha = hit ? 1 : (mode === "dark" ? .55 : .9);
+      mctx.globalAlpha = hit ? 1 : (mode === "dark" || mode === "fog" ? .55 : .9);
       mctx.fillStyle = hit ? hitColor : cssColor(n.branch, "#aaa");
       mctx.fillRect(ox + n.x * k, oy + n.y * k, Math.max(2, n.w * k), Math.max(1.5, n.h * k));
     });
@@ -441,12 +441,12 @@ window.MMFX = (function () {
     const vx = ox + (-cam.x / cam.s) * k, vy = oy + (-cam.y / cam.s) * k;
     const vw = viewport.clientWidth / cam.s * k, vh = viewport.clientHeight / cam.s * k;
     const view = st.getPropertyValue("--mm-view").trim() || "#fff";
-    if (mode === "dark") {
-      // всё вне рамки тонет в темноте, как под фонарём
+    if (mode === "dark" || mode === "fog") {
+      // всё вне рамки тонет в темноте (dark) или в тумане (fog)
       const cx = vx + vw / 2, cy = vy + vh / 2, r = Math.max(vw, vh) * .9 + 10;
       const g = mctx.createRadialGradient(cx, cy, r * .35, cx, cy, r * 1.3);
-      g.addColorStop(0, "rgba(0,0,0,0)");
-      g.addColorStop(1, "rgba(0,0,0,.82)");
+      g.addColorStop(0, mode === "fog" ? "rgba(200,197,190,0)" : "rgba(0,0,0,0)");
+      g.addColorStop(1, mode === "fog" ? "rgba(200,197,190,.62)" : "rgba(0,0,0,.82)");
       mctx.fillStyle = g;
       mctx.fillRect(0, 0, W, H);
     }

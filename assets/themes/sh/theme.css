@@ -1,0 +1,346 @@
+/* =========================================================
+   ТЕМА: SILENT HILL — туман, пепел и то, что бродит в дымке
+   Палитра: серо-белый туман, ржавчина, запёкшаяся кровь,
+   старая бумага. Шрифты: PT Serif (как записи в дневнике)
+   и PT Mono. Всё проступает из тумана медленно.
+   Всё оформление этой темы лежит в этом файле.
+   ========================================================= */
+
+@font-face { font-family: "PT Serif"; font-weight: 400; font-display: swap; src: url("../../fonts/pt-serif-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "PT Serif"; font-weight: 400; font-display: swap; src: url("../../fonts/pt-serif-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+@font-face { font-family: "PT Serif"; font-weight: 700; font-display: swap; src: url("../../fonts/pt-serif-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "PT Serif"; font-weight: 700; font-display: swap; src: url("../../fonts/pt-serif-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+
+/* карточка на стартовом экране */
+.tc-sh { --tc: #a3341f; }
+.tc-sh .tc-name { font-family: "PT Serif", serif; font-weight: 400; letter-spacing: .18em; color: #d9d6cf; }
+
+html[data-theme="sh"] {
+  --bg: #1a1917;
+  --text: #dcd8cf;
+  --muted: #8f8a82;
+  --a1: #a3341f;   /* ржавчина */
+  --a2: #6e1a12;   /* запёкшаяся кровь */
+  --a3: #e2ded5;   /* туман */
+  --a4: #8fa08c;   /* мох */
+  --a5: #3a3733;
+  --a6: #b8a58a;   /* старая бумага */
+  --glass: rgba(34, 32, 29, .92);
+  --tpl: #d6c9b0;
+  --err: #c4402a;
+  --panel-bg: linear-gradient(170deg, #26241f 0%, #171614 100%);
+  --vp-bg: radial-gradient(ellipse at 40% 20%, #2e2c28, #1a1917 70%);
+  --grid: rgba(220, 216, 207, .035);
+  --title-grad: linear-gradient(90deg, #b5562a, #a3341f);
+  --b1: #8fa08c; --b2: #cfc8b8; --b3: #b5562a; --b4: #a3341f; --b5: #7c7a85;
+  --head: "PT Serif", Georgia, serif;
+  --kicker: "PT Mono", monospace;
+  --glow: .15;
+}
+/* туман, медленно плывущий по всей странице (за содержимым) */
+html[data-theme="sh"] body::before {
+  content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 40% 25% at 20% 30%, rgba(220, 216, 207, .07), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 75% 60%, rgba(220, 216, 207, .06), transparent 70%),
+    radial-gradient(ellipse 35% 20% at 45% 85%, rgba(220, 216, 207, .05), transparent 70%);
+  animation: sh-drift 60s ease-in-out infinite alternate;
+}
+@keyframes sh-drift { from { transform: translateX(-6%); } to { transform: translateX(6%); } }
+
+/* ================= СЦЕНА: город в тумане ================= */
+html[data-theme="sh"] .decor-sh { display: block; }
+.decor-sh > * { position: absolute; }
+.decor-sh .sh-sky { inset: 0; background: linear-gradient(180deg, #dcdad5 0%, #cfccc6 45%, #bfbcb6 70%, #a9a6a0 100%); }
+.decor-sh .sh-town { left: 0; right: 0; bottom: 30%; width: 100%; height: 30%; opacity: .28; filter: blur(2.5px); }
+.decor-sh .sh-road {
+  left: 0; right: 0; bottom: 0; height: 36%;
+  background: linear-gradient(180deg, #a6a39d 0%, #7f7c76 55%, #5f5c57 100%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+}
+.decor-sh .sh-road .line {
+  position: absolute; left: 50%; top: 0; bottom: 0; width: 1.4%; transform: translateX(-50%);
+  background: repeating-linear-gradient(180deg, rgba(225, 222, 214, .55) 0 7%, transparent 7% 14%);
+  clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+}
+.decor-sh .sh-poles { left: 0; right: 0; bottom: 0; width: 100%; height: 72%; opacity: .75; }
+
+/* туман: несколько слоёв с разной скоростью */
+.decor-sh .sh-fog { pointer-events: none; }
+.decor-sh .f1 {
+  left: -30%; right: -30%; top: 20%; height: 50%;
+  background:
+    radial-gradient(ellipse 30% 40% at 25% 50%, rgba(226, 223, 217, .95), transparent 70%),
+    radial-gradient(ellipse 35% 45% at 70% 55%, rgba(226, 223, 217, .9), transparent 70%);
+  animation: sh-fogmove 46s ease-in-out infinite alternate;
+}
+.decor-sh .f2 {
+  left: -30%; right: -30%; bottom: 8%; height: 44%;
+  background:
+    radial-gradient(ellipse 28% 40% at 15% 60%, rgba(226, 223, 217, .85), transparent 70%),
+    radial-gradient(ellipse 30% 45% at 55% 50%, rgba(226, 223, 217, .7), transparent 70%),
+    radial-gradient(ellipse 25% 35% at 90% 60%, rgba(226, 223, 217, .85), transparent 70%);
+  animation: sh-fogmove 32s ease-in-out infinite alternate-reverse;
+}
+.decor-sh .f3 {
+  left: 0; right: 0; bottom: 0; height: 30%;
+  background: linear-gradient(180deg, transparent, rgba(226, 223, 217, .75) 60%, rgba(226, 223, 217, .9));
+}
+@keyframes sh-fogmove { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+
+/* существа, бредущие в тумане: у каждого свой силуэт, глубина и походка */
+.decor-sh .sh-creatures { inset: 0; pointer-events: none; }
+.decor-sh .cr { position: absolute; left: -15%; color: #34322f; animation: sh-walk 100s linear infinite; }
+.decor-sh .cr.rev { animation-name: sh-walk-back; }
+.decor-sh .cr .bob { width: 100%; height: 100%; animation: sh-bob 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.decor-sh .cr svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.decor-sh .cr.rev svg { transform: scaleX(-1); }
+.decor-sh .cr svg * { transform-box: fill-box; }
+.decor-sh .cr .lg1 { animation: sh-leg 2.6s ease-in-out infinite; transform-origin: 50% 0; }
+.decor-sh .cr .lg2 { animation: sh-leg 2.6s ease-in-out infinite reverse; transform-origin: 50% 0; }
+.decor-sh .cr .arm  { animation: sh-arm 2.6s ease-in-out infinite; transform-origin: 50% 0; }
+.decor-sh .cr .arm2 { animation: sh-arm 2.6s ease-in-out infinite reverse; transform-origin: 50% 0; }
+@keyframes sh-walk { from { left: -15%; } to { left: 110%; } }
+@keyframes sh-walk-back { from { left: 110%; } to { left: -15%; } }
+@keyframes sh-bob { 0%, 100% { transform: rotate(-2deg) translateY(0); } 30% { transform: rotate(3deg) translateY(-2%); } 60% { transform: rotate(-4deg) translateY(1%); } }
+@keyframes sh-leg { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
+@keyframes sh-arm { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+
+/* великан на горизонте: высокая тень на длинной шее, с рогами */
+.decor-sh .cr-giant { bottom: 30%; height: 70%; aspect-ratio: 160 / 260; opacity: .11; filter: blur(6px); animation-duration: 300s; }
+.decor-sh .cr-giant .bob { animation-duration: 8s; }
+/* мотылёк: медленно пролетает над дорогой, взмахивая крыльями */
+.decor-sh .cr-moth { top: 16%; height: 12%; aspect-ratio: 200 / 120; opacity: .38; filter: blur(1.6px); animation-duration: 75s; }
+.decor-sh .cr-moth .bob { animation: sh-fly 6s ease-in-out infinite; }
+.decor-sh .cr-moth .wing { animation: sh-flap .9s ease-in-out infinite; transform-origin: 50% 50%; }
+.decor-sh .cr-moth .wl { transform-origin: 100% 50%; }
+.decor-sh .cr-moth .wr { transform-origin: 0 50%; }
+@keyframes sh-fly { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(60%) rotate(5deg); } }
+@keyframes sh-flap { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.25); } }
+/* медуза-призрак: парит в тумане, щупальца колышутся */
+.decor-sh .cr-jelly { top: 24%; height: 26%; aspect-ratio: 120 / 220; opacity: .28; filter: blur(2.4px); animation-duration: 170s; }
+.decor-sh .cr-jelly .bob { animation: sh-hover 7s ease-in-out infinite; }
+.decor-sh .cr-jelly .jt1 { animation: sh-tent 3s ease-in-out infinite; transform-origin: 50% 0; }
+.decor-sh .cr-jelly .jt2 { animation: sh-tent 3.6s ease-in-out infinite reverse; transform-origin: 50% 0; }
+@keyframes sh-hover { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-14%) scale(1.04, .96); } }
+@keyframes sh-tent { 0%, 100% { transform: rotate(-6deg) skewX(4deg); } 50% { transform: rotate(6deg) skewX(-6deg); } }
+/* рогатый: сгорбленный, ветви растут из спины */
+.decor-sh .cr-antler { bottom: 29%; height: 26%; aspect-ratio: 140 / 220; opacity: .36; filter: blur(2px); animation-duration: 160s; }
+.decor-sh .cr-antler .bob { animation-duration: 4.4s; }
+.decor-sh .cr-antler .br, .decor-sh .cr-antler .br2 { animation: sh-arm 4.4s ease-in-out infinite; transform-origin: 0 100%; }
+/* паук: бежит рывками, лапы мельтешат */
+.decor-sh .cr-spider { bottom: 25%; height: 12%; aspect-ratio: 220 / 120; opacity: .45; filter: blur(1.6px); animation: sh-walk 70s steps(140) infinite; }
+.decor-sh .cr-spider .bob { animation: sh-skitter .5s steps(2) infinite; }
+.decor-sh .cr-spider .sk1 { animation: sh-leg .35s steps(2) infinite; transform-origin: 30% 0; }
+.decor-sh .cr-spider .sk2 { animation: sh-leg .35s steps(2) infinite reverse; transform-origin: 30% 0; }
+@keyframes sh-skitter { 50% { transform: translateY(-3%); } }
+/* слизень: бугристое тело перекатывается волной, щупальца шевелятся */
+.decor-sh .cr-slug { bottom: 19%; height: 9%; aspect-ratio: 220 / 90; opacity: .45; filter: blur(1.6px); animation-duration: 210s; }
+.decor-sh .cr-slug .bob { animation: none; }
+.decor-sh .cr-slug .body { animation: sh-ooze 2.8s ease-in-out infinite; transform-origin: 50% 100%; }
+.decor-sh .cr-slug .tn1 { animation: sh-tent 1.8s ease-in-out infinite; transform-origin: 100% 100%; }
+.decor-sh .cr-slug .tn2 { animation: sh-tent 2.2s ease-in-out infinite reverse; transform-origin: 100% 100%; }
+@keyframes sh-ooze { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.06, .86); } }
+/* щупальца из земли у обочины: извиваются и иногда уходят под землю */
+.decor-sh .cr-tent { left: 74%; bottom: 10%; height: 24%; aspect-ratio: 1; opacity: .5; filter: blur(1.3px); animation: sh-sink 22s ease-in-out infinite; }
+.decor-sh .cr-tent .bob { animation: none; }
+.decor-sh .cr-tent .tw1 { animation: sh-writhe 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
+.decor-sh .cr-tent .tw2 { animation: sh-writhe 3s ease-in-out infinite reverse; transform-origin: 50% 100%; }
+@keyframes sh-writhe { 0%, 100% { transform: rotate(-8deg) skewX(6deg); } 50% { transform: rotate(8deg) skewX(-8deg); } }
+@keyframes sh-sink { 0%, 100% { transform: translateY(70%); opacity: 0; } 15%, 60% { transform: translateY(0); opacity: .5; } 75% { transform: translateY(70%); opacity: 0; } }
+/* громила: тяжело ступает, огромная рука волочится по земле */
+.decor-sh .cr-brute { bottom: 5%; height: 30%; aspect-ratio: 160 / 150; opacity: .55; filter: blur(1.2px); animation-duration: 130s; }
+.decor-sh .cr-brute .bob { animation: sh-heavy 3.4s ease-in-out infinite; }
+.decor-sh .cr-brute .lg1, .decor-sh .cr-brute .lg2 { animation-duration: 3.4s; }
+.decor-sh .cr-brute .drag { animation: sh-drag-arm 3.4s ease-in-out infinite; transform-origin: 100% 0; }
+@keyframes sh-heavy { 0%, 100% { transform: translateY(0) rotate(-1deg); } 25% { transform: translateY(2%) rotate(2deg); } 50% { transform: translateY(0) rotate(-2deg); } 75% { transform: translateY(2%) rotate(1deg); } }
+@keyframes sh-drag-arm { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(5deg); } }
+/* гончая: тощая, бежит быстро */
+.decor-sh .cr-hound { bottom: 3%; height: 15%; aspect-ratio: 200 / 120; opacity: .55; filter: blur(1px); animation-duration: 48s; }
+.decor-sh .cr-hound .bob { animation: sh-gallop .5s ease-in-out infinite; }
+.decor-sh .cr-hound .lg1, .decor-sh .cr-hound .lg2 { animation-duration: .5s; }
+.decor-sh .cr-hound .tail { animation: sh-arm .5s ease-in-out infinite; transform-origin: 100% 0; }
+@keyframes sh-gallop { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-6%) rotate(-2deg); } }
+
+/* пепел */
+.decor-sh .sh-ash { inset: -10% 0 0 0; pointer-events: none; }
+.decor-sh .a1, .decor-sh .a2 {
+  /* хлопья пепла: несколько слоёв с «некратными» размерами плитки, чтобы не было видно сетки */
+  background-image:
+    radial-gradient(circle at 13% 27%, rgba(90, 88, 84, .7) 0 1.3px, transparent 2px),
+    radial-gradient(circle at 71% 63%, rgba(240, 238, 232, .9) 0 1.6px, transparent 2.3px),
+    radial-gradient(circle at 37% 81%, rgba(90, 88, 84, .5) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 88% 12%, rgba(240, 238, 232, .8) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle at 54% 44%, rgba(110, 106, 100, .6) 0 1.5px, transparent 2.2px);
+  background-size: 173px 211px, 241px 197px, 307px 263px, 131px 277px, 389px 331px;
+  animation: sh-ash 19s linear infinite;
+}
+.decor-sh .a2 {
+  background-size: 229px 283px, 353px 239px, 197px 367px, 419px 313px, 271px 449px;
+  background-position: 61px 37px, 143px 211px, 23px 97px, 301px 59px, 177px 263px;
+  filter: blur(.8px); transform: scale(1.4);
+  animation-duration: 13s;
+}
+@keyframes sh-ash { to { background-position: -90px 420px, 70px 520px, -40px 470px, 120px 560px, -150px 610px; } }
+
+/* радиоприёмник с помехами */
+.decor-sh .sh-radio {
+  right: 5%; top: 96px; z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px 8px 8px;
+  background: rgba(226, 223, 217, .55); border: 1px solid rgba(60, 57, 53, .35);
+  backdrop-filter: blur(2px);
+}
+.decor-sh .sh-radio svg { width: 46px; height: 32px; }
+.decor-sh .sh-radio .bars { display: flex; align-items: flex-end; gap: 2px; height: 18px; }
+.decor-sh .sh-radio .bars i { width: 3px; height: 30%; background: #a3341f; animation: sh-bars 1s steps(3) infinite; }
+.decor-sh .sh-radio .bars i:nth-child(2) { animation-delay: -.3s; }
+.decor-sh .sh-radio .bars i:nth-child(3) { animation-delay: -.7s; }
+.decor-sh .sh-radio .bars i:nth-child(4) { animation-delay: -.15s; }
+.decor-sh .sh-radio .bars i:nth-child(5) { animation-delay: -.5s; }
+@keyframes sh-bars { 0% { height: 20%; } 33% { height: 90%; } 66% { height: 45%; } }
+.decor-sh .sh-radio .lbl { font: 400 11px "PT Mono", monospace; letter-spacing: .18em; text-transform: uppercase; color: #3c3936; }
+
+.decor-sh .sh-vignette { inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(40, 38, 35, .45)); pointer-events: none; }
+.decor-sh .sh-grain {
+  inset: -50%; opacity: .16; pointer-events: none; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: sh-grain .8s steps(4) infinite;
+}
+@keyframes sh-grain { 0% { transform: translate(0,0); } 25% { transform: translate(-3%,2%); } 50% { transform: translate(2%,-3%); } 75% { transform: translate(-2%,-1%); } }
+/* при входе туман сначала стоит стеной и медленно редеет */
+.decor-sh .sh-mist { inset: 0; background: #e2dfd9; opacity: 0; pointer-events: none; }
+html.entered[data-theme="sh"] .decor-sh .sh-mist { animation: sh-mist 4.5s ease-out both; }
+@keyframes sh-mist { 0%, 20% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ================= ПЕРВЫЙ ЭКРАН ================= */
+html[data-theme="sh"] .topnav,
+html[data-theme="sh"] .hero-text { color: #2c2a27; }
+html[data-theme="sh"] .navlinks a:hover,
+html[data-theme="sh"] .theme-btn:hover { color: #a3341f; }
+html[data-theme="sh"] .brand,
+html[data-theme="sh"] .navlinks a,
+html[data-theme="sh"] .theme-btn { font-family: "PT Mono", monospace; letter-spacing: .16em; font-weight: 400; }
+html[data-theme="sh"] .brand, html[data-theme="sh"] .theme-btn { border-width: 1px; }
+html[data-theme="sh"] .kicker {
+  font: 400 clamp(12px, 1.3vw, 14px) "PT Mono", monospace; letter-spacing: .3em; text-transform: uppercase;
+  color: #6e1a12;
+}
+html[data-theme="sh"] h1 { font-weight: 400; letter-spacing: .22em; line-height: 1; font-size: clamp(38px, 7vw, 100px); }
+html[data-theme="sh"] h1 > span:first-child {
+  color: #2c2a27;
+  text-shadow: 0 0 18px rgba(240, 238, 232, .9), 0 0 2px rgba(240, 238, 232, .8);
+}
+/* буквы иногда тонут в тумане */
+html[data-theme="sh"] h1 > span:first-child .ch { animation: sh-fade 9s ease-in-out infinite; animation-delay: calc(var(--i) * -1.7s); }
+@keyframes sh-fade { 0%, 70%, 100% { filter: none; opacity: 1; } 82% { filter: blur(4px); opacity: .5; } }
+html[data-theme="sh"] h1 .outline {
+  font: 400 max(.2em, 12px) "PT Mono", monospace; letter-spacing: .55em; margin-top: 22px;
+  color: #6e1a12;
+}
+html[data-theme="sh"] h1 .outline::before { content: ""; display: inline-block; width: 40px; height: 1px; margin-right: 14px; vertical-align: middle; background: #6e1a12; }
+html[data-theme="sh"] .lead { color: #3a3733; font-weight: 500; max-width: 500px; text-shadow: 0 0 12px rgba(240, 238, 232, .9); }
+html[data-theme="sh"] .btn {
+  font-family: "PT Mono", monospace; letter-spacing: .24em; font-size: 14px;
+  color: #2c2a27; background: rgba(226, 223, 217, .5);
+  border: 1px solid #2c2a27;
+}
+html[data-theme="sh"] .btn:hover { color: #e2ded5; background: #6e1a12; border-color: #6e1a12; transform: none; }
+html[data-theme="sh"] .hero::after { height: 160px; }
+
+/* появление из тумана */
+html.entered[data-theme="sh"] h1 > span:first-child .ch { animation: sh-emerge 2.2s ease both, sh-fade 9s ease-in-out 4s infinite; animation-delay: calc(1.4s + var(--i) * 140ms), calc(4s + var(--i) * -1.7s); }
+html.entered[data-theme="sh"] h1 .outline .ch { animation: sh-emerge 1.6s ease both; animation-delay: calc(2.8s + var(--i) * 35ms); }
+@keyframes sh-emerge { from { opacity: 0; filter: blur(14px); } }
+html.entered[data-theme="sh"] .kicker { animation: sh-in 1.6s ease 1s both; }
+html.entered[data-theme="sh"] .lead { animation: sh-in 2s ease 3.2s both; }
+html.entered[data-theme="sh"] .btn { animation: sh-in 2s ease 3.7s both; }
+@keyframes sh-in { from { opacity: 0; filter: blur(6px); } }
+
+/* ================= РАЗДЕЛЫ ================= */
+html[data-theme="sh"] .section { padding-top: 120px; }
+html[data-theme="sh"] .sec-title { font-weight: 400; letter-spacing: .14em; font-size: clamp(30px, 4.8vw, 60px); }
+html[data-theme="sh"] .sec-title span { background: none; color: #b5562a; -webkit-text-fill-color: #b5562a; }
+html[data-theme="sh"] .sec-sub { font-family: "PT Mono", monospace; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #77726a; }
+/* карточки — как страницы старого дневника с ржавыми пятнами */
+html[data-theme="sh"] .step {
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(163, 52, 31, .16), transparent 45%),
+    #221f1c;
+  border: 1px solid #36322d; border-top: 2px solid var(--c);
+  box-shadow: none;
+}
+html[data-theme="sh"] .step b { font-family: "PT Serif", serif; font-weight: 400; font-size: 52px; top: -24px; text-shadow: none; opacity: .75; }
+html[data-theme="sh"] .step h3, html[data-theme="sh"] .flow h3 { font-weight: 400; letter-spacing: .1em; font-size: 19px; }
+html[data-theme="sh"] .flow i { font-family: "PT Mono", monospace; font-size: 20px; color: #b5562a; text-shadow: none; }
+html[data-theme="sh"] .flow li { background: #221f1c; border-left: 2px solid #6e1a12; }
+html[data-theme="sh"] .toolbar button,
+html[data-theme="sh"] .help-pill,
+html[data-theme="sh"] .footer { font-family: "PT Mono", monospace; }
+html[data-theme="sh"] .toolbar button { border-width: 1px; border-color: #4a4640; letter-spacing: .14em; font-size: 13px; }
+html[data-theme="sh"] .toolbar button:hover { background: #6e1a12; border-color: #6e1a12; }
+html[data-theme="sh"] .viewport { border: 1px solid #36322d; box-shadow: 0 0 80px rgba(0,0,0,.5) inset; }
+html[data-theme="sh"] .node.d0 { color: #e2ded5; font-weight: 400; letter-spacing: .12em; background: #6e1a12; box-shadow: 0 0 30px rgba(110, 26, 18, .5); }
+html[data-theme="sh"] .node.d1, html[data-theme="sh"] .node.stage { font-weight: 400; letter-spacing: .06em; }
+html[data-theme="sh"] .help-pill { color: #1a1917; background: #cfc8b8; box-shadow: 3px 3px 0 #6e1a12; letter-spacing: .14em; }
+html[data-theme="sh"] .help { border-width: 1px; box-shadow: 0 0 60px rgba(0, 0, 0, .6); }
+html[data-theme="sh"] .help .help-kicker { font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: #b5562a; }
+html[data-theme="sh"] .footer .footer-title { color: #dcd8cf; font-weight: 400; letter-spacing: .18em; }
+
+/* появление при прокрутке: блоки проступают из тумана */
+html[data-theme="sh"] .reveal {
+  transform: scale(1.02);
+  filter: blur(9px);
+  transition: opacity 1.6s ease, transform 1.6s ease, filter 1.8s ease;
+  transition-delay: min(calc(var(--ri, 0) * 140ms), 840ms);
+}
+html[data-theme="sh"] .reveal.in { transform: none; filter: none; }
+
+/* ================= МИНИ-КАРТА: всё вне рамки тонет в тумане ================= */
+html[data-theme="sh"] .minimap {
+  --mm-mode: fog;
+  --mm-view: #b5562a;
+  --mm-view-fill: rgba(181, 86, 42, .08);
+  background: #24221f;
+  border: 1px solid #4a4640;
+}
+html[data-theme="sh"] .minimap::before { content: "Карта · туман"; color: #77726a; letter-spacing: .3em; }
+html[data-theme="sh"] .mm-toggle { border-width: 1px; border-color: #4a4640; background: #1a1917; box-shadow: none; color: #a8a297; }
+html[data-theme="sh"] .mm-toggle:hover { border-color: #b5562a; background: #1a1917; color: #e2ded5; }
+
+/* ================= ПАСХАЛКИ ================= */
+/* уведомление — как записка на старой бумаге */
+html[data-theme="sh"] .egg-toast { color: #2c2a27; background: #d8d0bf; border: 1px solid #8f8571; box-shadow: 0 10px 40px rgba(0, 0, 0, .45); }
+html[data-theme="sh"] .egg-kicker { color: #6e1a12; }
+html[data-theme="sh"] .egg-title { font-weight: 400; letter-spacing: .12em; background: none; -webkit-text-fill-color: #2c2a27; }
+html[data-theme="sh"] .egg-count { color: #6b6457; }
+/* «декодирование»: мир на секунды показывает изнанку */
+.sh-otherworld {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(60, 10, 6, .2), rgba(20, 6, 4, .92) 75%),
+    repeating-linear-gradient(90deg, rgba(90, 30, 15, .35) 0 3px, transparent 3px 22px),
+    #2a0d08;
+  mix-blend-mode: multiply;
+  animation: sh-other 4.2s ease both;
+}
+@keyframes sh-other { 0% { opacity: 0; } 15%, 75% { opacity: 1; } 100% { opacity: 0; } }
+html.sh-other .decor-sh .sh-fog, html.sh-other .decor-sh .sh-mist { opacity: .15; transition: opacity 1s; }
+html.sh-other .decor-sh .cr { color: #1a0604; opacity: .9; filter: blur(.4px); }
+/* радио: экран заливают помехи, существа подходят ближе */
+.sh-static {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: sh-static 1.6s steps(8) both;
+}
+@keyframes sh-static { 0% { opacity: .9; background-position: 0 0; } 25% { opacity: .5; background-position: 40px 60px; } 50% { opacity: .85; background-position: -30px 20px; } 75% { opacity: .3; background-position: 10px -50px; } 100% { opacity: 0; } }
+html.sh-close .decor-sh .cr-brute { height: 52%; bottom: 0; opacity: .8; filter: blur(.6px); transition: height 3s ease, opacity 3s ease, bottom 3s ease; }
+html.sh-close .decor-sh .cr-hound { height: 26%; opacity: .75; transition: height 3s ease, opacity 3s ease; }
+html.sh-close .decor-sh .cr-tent { animation: none; opacity: .7; height: 40%; bottom: 0; transition: height 3s ease, bottom 3s ease; }
+html.sh-close .decor-sh .cr-moth { height: 22%; opacity: .55; transition: height 3s ease, opacity 3s ease; }
+html.sh-close .decor-sh .sh-radio .bars i { animation-duration: .2s; }
+
+/* мобильная раскладка сцены */
+@media (max-width: 700px) {
+  .decor-sh .sh-radio { top: 74px; right: 4%; }
+  .decor-sh .sh-radio .lbl { display: none; }
+  html[data-theme="sh"] h1 { letter-spacing: .12em; }
+}

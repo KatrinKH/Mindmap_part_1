@@ -20,5 +20,6 @@
 window.MM_THEME_CONFIG = {
   gta:    "on",   // GTA 6
   atomic: "on",   // Atomic Heart
-  re:     "on"    // Resident Evil Requiem
+  sh:     "on",   // Silent Hill
+  re:     "off"   // Resident Evil Requiem — выключена (файлы на месте, можно вернуть: "on")
 };
