@@ -216,6 +216,42 @@ window.MMFX = (function () {
 
 (function () {
   "use strict";
+  const dialog = document.getElementById("step-dialog");
+  const title = document.getElementById("step-dialog-title");
+  const content = document.getElementById("step-dialog-content");
+  if (dialog && title && content) {
+    document.querySelectorAll(".step[data-tip]").forEach(card => {
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-haspopup", "dialog");
+      const open = () => {
+        title.textContent = card.querySelector("h3")?.textContent || "Этап конфликта";
+        content.replaceChildren();
+        card.dataset.tip.split("\n").forEach(line => {
+          const separator = line.indexOf(": ");
+          const row = document.createElement("p");
+          if (separator < 0) { row.textContent = line; }
+          else {
+            const label = document.createElement("strong");
+            label.textContent = line.slice(0, separator);
+            row.append(label, document.createTextNode(line.slice(separator)));
+          }
+          content.appendChild(row);
+        });
+        dialog.showModal();
+      };
+      card.addEventListener("click", open);
+      card.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); }
+      });
+    });
+    dialog.querySelector(".step-dialog-close")?.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
+  }
+})();
+
+(function () {
+  "use strict";
 
   // цвета веток берутся из темы (переменные --b1…--b5 в assets/themes/*/theme.css)
   const BRANCH_COLORS = ["var(--b1)", "var(--b2)", "var(--b3)", "var(--b4)", "var(--b5)", "var(--a6)"];
