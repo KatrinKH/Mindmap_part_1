@@ -246,8 +246,8 @@ window.MMFX = (function () {
     const t = n.text;
     const cls = ["node", "d" + Math.min(n.depth, 3)];
     if (n.kids.length) cls.push("has-kids");
-    if (/^\d этап/.test(t)) cls.push("stage");
-    if (/^«/.test(t) || /^Шаблон/.test(t)) cls.push("tpl");
+    if (/^\d этап\./.test(t)) cls.push("stage");
+    if (/^«/.test(t) || /^(Шаблон|Пример|Формула:|Формула итога)/.test(t)) cls.push("tpl");
     if (/^Вход/.test(t)) cls.push("k-in");
     if (/^Выход/.test(t)) cls.push("k-out");
     if (/^Ошибка/.test(t)) cls.push("k-err");
