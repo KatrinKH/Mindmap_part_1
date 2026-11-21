@@ -67,6 +67,12 @@ window.MM_SOUNDS.re = {
       H.blip(out, { noise: "brown", dur: 2.6, vol: .35, attack: 2.3, filter: ["lowpass", 400] });
       H.blip(out, { type: "sine", freq: 65, to: 30, dur: 1.6, vol: .6, delay: 2.4 });
     },
-    on(ctx, out, H) { H.blip(out, { type: "sine", freq: 82.4, to: 41.2, dur: .8, vol: .35 }); }
+    on(ctx, out, H) { H.blip(out, { type: "sine", freq: 82.4, to: 41.2, dur: .8, vol: .35 }); },
+    // пасхалки: удар, сердцебиение, тревожный гул
+    thud(ctx, out, H) { H.blip(out, { type: "sine", freq: 60, to: 28, dur: 1.4, vol: .6 }); H.blip(out, { noise: "brown", dur: 1, vol: .35, filter: ["lowpass", 200] }); },
+    heartbeat(ctx, out, H) { for (let i = 0; i < 4; i++) { H.blip(out, { type: "sine", freq: 58, to: 40, dur: .18, vol: .55, delay: i * .9 }); H.blip(out, { type: "sine", freq: 52, to: 36, dur: .2, vol: .4, delay: i * .9 + .22 }); } },
+    egg(ctx, out, H) { H.blip(out, { type: "sine", freq: 220, to: 207, dur: 2, vol: .08, attack: .4 }); H.blip(out, { type: "sine", freq: 311, to: 293, dur: 2, vol: .05, attack: .4 }); },
+    pop(ctx, out, H) { H.blip(out, { type: "sine", freq: 90, to: 45, dur: .3, vol: .2 }); },
+    alarm(ctx, out, H) { H.blip(out, { type: "sawtooth", freq: 55, to: 49, dur: 1.2, vol: .08, filter: ["lowpass", 400] }); }
   }
 };

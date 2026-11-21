@@ -76,6 +76,10 @@ window.MM_SOUNDS.atomic = {
       H.blip(out, { type: "sawtooth", freq: 40, to: 180, dur: 1.4, vol: .09, attack: .5, filter: ["lowpass", 700] });
       H.blip(out, { noise: "white", dur: .06, vol: .25, delay: 1.3, filter: ["highpass", 1500] });
     },
-    on(ctx, out, H) { H.blip(out, { noise: "white", dur: .03, vol: .2, filter: ["highpass", 2000] }); }
+    on(ctx, out, H) { H.blip(out, { noise: "white", dur: .03, vol: .2, filter: ["highpass", 2000] }); },
+    // пасхалки: сигнал успеха и тревога
+    egg(ctx, out, H) { [660, 880, 1320].forEach((f, i) => H.blip(out, { type: "square", freq: f, dur: .14, vol: .045, delay: i * .14, filter: ["lowpass", 3000] })); },
+    pop(ctx, out, H) { H.blip(out, { noise: "white", dur: .05, vol: .18, filter: ["highpass", 1500] }); },
+    alarm(ctx, out, H) { for (let i = 0; i < 6; i++) H.blip(out, { type: "square", freq: 740, to: 520, dur: .25, vol: .05, delay: i * .4, filter: ["lowpass", 2400] }); }
   }
 };

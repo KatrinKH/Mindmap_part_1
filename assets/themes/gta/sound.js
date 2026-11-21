@@ -77,6 +77,11 @@ window.MM_SOUNDS.gta = {
       H.blip(out, { noise: "white", dur: 1.1, vol: .12, attack: .7, filter: ["bandpass", 1800, .8] });
       [220, 329.63, 440, 554.37].forEach(f => H.blip(out, { type: "sawtooth", freq: f, dur: 1.4, vol: .03, delay: .75, filter: ["lowpass", 1800] }));
     },
-    on(ctx, out, H) { H.blip(out, { type: "triangle", freq: 880, to: 1760, dur: .2, vol: .05 }); }
+    on(ctx, out, H) { H.blip(out, { type: "triangle", freq: 880, to: 1760, dur: .2, vol: .05 }); },
+    // пасхалки: победное арпеджио, хлопки салюта, сирена
+    egg(ctx, out, H) { [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => H.blip(out, { type: "square", freq: f, dur: .22, vol: .035, delay: i * .09, filter: ["lowpass", 3000] })); },
+    pop(ctx, out, H) { H.blip(out, { noise: "white", dur: .35, vol: .12, filter: ["lowpass", 1800] }); },
+    alarm(ctx, out, H) { H.blip(out, { type: "sawtooth", freq: 220, to: 110, dur: .4, vol: .06, filter: ["lowpass", 1500] }); },
+    siren(ctx, out, H) { for (let i = 0; i < 6; i++) H.blip(out, { type: "triangle", freq: i % 2 ? 660 : 880, dur: .28, vol: .05, delay: i * .3 }); }
   }
 };

@@ -11,6 +11,23 @@
   css: "assets/themes/gta/theme.css",
   sound: "assets/themes/gta/sound.js",   // звуковая атмосфера темы
 
+  // пасхалки темы (общая логика — в assets/eggs.js)
+  eggs: {
+    sceneClicks: 5,               // столько раз кликнуть по солнцу
+    decode(fx) {
+      fx.fireworks(["#ff2e88", "#ffd23f", "#19e3d1", "#ff8a3d", "#ffffff"]);
+      fx.sound("egg");
+      fx.toast("Миссия выполнена", "Декодирование пройдено: теперь ты сразу видишь, кто тут «незаменимый», а кто «зависимый»", "decode");
+    },
+    scene(fx) {
+      const stars = fx.layer("gta-stars", 3600);
+      stars.textContent = "★★★★★";
+      fx.layer("gta-police", 3600);
+      fx.sound("siren");
+      fx.toast("Уровень конфликта: ★★★★★", "Слишком горячо! Срочно вниз по лестнице — на 1 этап, обработай эмоции", "scene");
+    }
+  },
+
   // картинка на карточке стартового экрана
   card: `
 <svg viewBox="0 0 320 200" aria-hidden="true">
@@ -31,7 +48,7 @@
   decor: `
 <div class="sky" data-depth=".5"></div>
 <div class="haze"></div>
-<div class="sun" data-depth=".38" data-mouse="4"></div>
+<div class="sun" data-depth=".38" data-mouse="4" data-egg="scene"></div>
 <svg class="far-city" data-depth=".26" data-mouse="7" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice"><path d="M0 300 V222 H28 V242 H47 V167 H68 V206 H102 V183 H106 V206 V243 H137 V216 H141 V243 V245 H172 V203 H193 V245 H229 V248 H259 V226 H278 V230 H300 V214 H335 V186 H339 V214 V212 H377 V244 H412 V208 H449 V151 H484 V144 H516 V214 H541 V240 H566 V137 H600 V165 H627 V161 H650 V95 H681 V68 H685 V95 V137 H721 V106 H758 V146 H778 V173 H817 V144 H844 V178 H890 V217 H919 V245 H952 V226 H956 V245 V197 H978 V133 H1023 V109 H1027 V133 V189 H1057 V150 H1101 V154 H1127 V163 H1166 V239 H1188 V222 H1192 V239 V201 H1231 V173 H1235 V201 V193 H1258 V153 H1280 V179 H1317 V247 H1357 V160 H1402 V234 H1432 V245 H1462 V229 H1466 V245 V300 Z" fill="#3a1263"/><g fill="#ffd9a8" opacity=".55"><rect x="902" y="181" width="3" height="5"/><rect x="225" y="227" width="3" height="5"/><rect x="1230" y="153" width="3" height="5"/><rect x="209" y="140" width="3" height="5"/><rect x="1160" y="178" width="3" height="5"/><rect x="1098" y="165" width="3" height="5"/><rect x="744" y="146" width="3" height="5"/><rect x="144" y="193" width="3" height="5"/><rect x="1257" y="236" width="3" height="5"/><rect x="304" y="204" width="3" height="5"/><rect x="711" y="233" width="3" height="5"/><rect x="971" y="171" width="3" height="5"/><rect x="236" y="264" width="3" height="5"/><rect x="954" y="262" width="3" height="5"/><rect x="990" y="219" width="3" height="5"/><rect x="175" y="176" width="3" height="5"/><rect x="209" y="227" width="3" height="5"/><rect x="542" y="262" width="3" height="5"/><rect x="1417" y="181" width="3" height="5"/><rect x="1057" y="145" width="3" height="5"/><rect x="420" y="275" width="3" height="5"/><rect x="740" y="177" width="3" height="5"/><rect x="1413" y="279" width="3" height="5"/><rect x="55" y="275" width="3" height="5"/><rect x="610" y="163" width="3" height="5"/><rect x="1425" y="206" width="3" height="5"/><rect x="1061" y="233" width="3" height="5"/><rect x="342" y="231" width="3" height="5"/><rect x="456" y="276" width="3" height="5"/><rect x="1109" y="268" width="3" height="5"/><rect x="675" y="197" width="3" height="5"/><rect x="1255" y="189" width="3" height="5"/><rect x="490" y="242" width="3" height="5"/><rect x="464" y="191" width="3" height="5"/><rect x="1060" y="266" width="3" height="5"/><rect x="728" y="147" width="3" height="5"/><rect x="57" y="211" width="3" height="5"/><rect x="967" y="206" width="3" height="5"/><rect x="396" y="228" width="3" height="5"/><rect x="915" y="229" width="3" height="5"/><rect x="746" y="160" width="3" height="5"/><rect x="451" y="166" width="3" height="5"/><rect x="464" y="260" width="3" height="5"/><rect x="402" y="226" width="3" height="5"/><rect x="418" y="263" width="3" height="5"/><rect x="1278" y="140" width="3" height="5"/><rect x="981" y="228" width="3" height="5"/><rect x="1317" y="161" width="3" height="5"/><rect x="1352" y="170" width="3" height="5"/><rect x="795" y="191" width="3" height="5"/><rect x="979" y="185" width="3" height="5"/><rect x="888" y="225" width="3" height="5"/><rect x="177" y="241" width="3" height="5"/><rect x="948" y="242" width="3" height="5"/><rect x="173" y="180" width="3" height="5"/><rect x="348" y="172" width="3" height="5"/><rect x="56" y="178" width="3" height="5"/><rect x="1209" y="259" width="3" height="5"/><rect x="1343" y="177" width="3" height="5"/><rect x="1252" y="261" width="3" height="5"/><rect x="1346" y="229" width="3" height="5"/><rect x="319" y="280" width="3" height="5"/><rect x="1122" y="173" width="3" height="5"/><rect x="43" y="143" width="3" height="5"/><rect x="1330" y="166" width="3" height="5"/><rect x="1078" y="175" width="3" height="5"/><rect x="888" y="189" width="3" height="5"/><rect x="432" y="147" width="3" height="5"/><rect x="515" y="194" width="3" height="5"/><rect x="599" y="268" width="3" height="5"/><rect x="492" y="290" width="3" height="5"/><rect x="667" y="206" width="3" height="5"/><rect x="1114" y="247" width="3" height="5"/><rect x="268" y="155" width="3" height="5"/><rect x="724" y="257" width="3" height="5"/><rect x="1356" y="289" width="3" height="5"/><rect x="1058" y="247" width="3" height="5"/><rect x="1027" y="173" width="3" height="5"/><rect x="1089" y="178" width="3" height="5"/><rect x="1072" y="270" width="3" height="5"/><rect x="38" y="252" width="3" height="5"/><rect x="375" y="141" width="3" height="5"/><rect x="306" y="184" width="3" height="5"/><rect x="289" y="261" width="3" height="5"/><rect x="1267" y="170" width="3" height="5"/><rect x="1139" y="155" width="3" height="5"/><rect x="667" y="272" width="3" height="5"/><rect x="1086" y="282" width="3" height="5"/><rect x="988" y="167" width="3" height="5"/><rect x="1147" y="154" width="3" height="5"/></g></svg>
 <div class="bridge" data-depth=".16"></div>
 <div class="trails" data-depth=".16"><i></i><i></i><i></i><i></i><i></i><i></i></div>

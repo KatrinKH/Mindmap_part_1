@@ -236,3 +236,18 @@ html[data-theme="re"] .mm-toggle { border-width: 1px; border-color: #3a3c42; bac
 html[data-theme="re"] .mm-toggle:hover { border-color: #c4161c; background: #08090b; color: #d9d6d0; }
 html[data-theme="re"] .mm-wrap.collapsed .mm-toggle { color: #bdb8ae; border-color: #55575e; }
 html[data-theme="re"] .mm-wrap.collapsed .mm-toggle:hover { color: #ece9e3; border-color: #c4161c; }
+
+/* ================= ПАСХАЛКИ ================= */
+html[data-theme="re"] .egg-toast { border-width: 1px; box-shadow: 0 0 60px rgba(196, 22, 28, .3); }
+html[data-theme="re"] .egg-kicker { color: #c4161c; }
+html[data-theme="re"] .egg-title { font-weight: 300; letter-spacing: .14em; background: none; -webkit-text-fill-color: #d9d6d0; }
+/* «декодирование»: гаснет свет и мерцая возвращается */
+.re-lightsout { background: #000; animation: re-lights 2.8s steps(1) both; }
+@keyframes re-lights {
+  0% { opacity: 0; } 4% { opacity: 1; } 60% { opacity: 1; }
+  64% { opacity: .2; } 67% { opacity: 1; } 72% { opacity: .1; } 75% { opacity: .9; } 82% { opacity: 0; } 100% { opacity: 0; }
+}
+/* красное окно: сердцебиение */
+.re-heartbeat { background: radial-gradient(ellipse at center, transparent 35%, rgba(142, 15, 22, .7)); opacity: 0; animation: re-beat .9s ease-out 4; }
+@keyframes re-beat { 0% { opacity: 0; } 12% { opacity: 1; } 25% { opacity: .3; } 37% { opacity: .9; } 100% { opacity: 0; } }
+html.re-heart .decor-re .re-house .win.red { animation: none; opacity: 1; filter: drop-shadow(0 0 14px #ff2020); }

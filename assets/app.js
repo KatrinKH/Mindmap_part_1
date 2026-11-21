@@ -158,6 +158,7 @@ window.MMFX = (function () {
     if (current && current !== id && defs[current].onLeave) defs[current].onLeave();
     current = id;
     html.dataset.theme = id;
+    window.MM_CURRENT_THEME = defs[id];   // для пасхалок
     if (window.MMSound) window.MMSound.setTheme(id, defs[id].sound);
     if (kickerEl && defs[id].kicker) kickerEl.textContent = defs[id].kicker;
     cardsEl.querySelectorAll(".theme-card").forEach(c => c.classList.toggle("last", c.dataset.themePick === id));
@@ -545,7 +546,9 @@ window.MMFX = (function () {
     if (pointers.size === 0 && downInfo) {
       if (!downInfo.moved && downInfo.target) {
         const n = all[+downInfo.target.dataset.id];
-        if (n.kids.length) toggle(n);
+        // центр карты не сворачивается: клики по нему считает пасхалка
+        if (n.depth === 0) { if (window.MMEggs) window.MMEggs.rootClick(); }
+        else if (n.kids.length) toggle(n);
       }
       downInfo = null;
     }

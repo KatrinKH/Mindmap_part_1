@@ -215,3 +215,20 @@ html[data-theme="gta"] .minimap::before { content: "Радар"; left: 50%; top:
 html[data-theme="gta"] .mm-toggle { top: 6px; right: 6px; border-color: #ff2e88; box-shadow: 0 0 12px rgba(255, 46, 136, .7); }
 html[data-theme="gta"] .mm-toggle:hover { background: #ff2e88; }
 html[data-theme="gta"] .mm-wrap.collapsed .mm-toggle { color: #ffd23f; }
+
+/* ================= ПАСХАЛКИ ================= */
+html[data-theme="gta"] .egg-title { font-size: 34px; background: linear-gradient(180deg, #fff 0%, #ffd23f 55%, #ff8a3d 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(3px 3px 0 #0b0418); }
+html[data-theme="gta"] .egg-toast { border-color: #ffd23f; box-shadow: 6px 6px 0 #ff2e88, 0 0 40px rgba(255, 46, 136, .5); }
+/* звёзды «розыска» и мигалки */
+.gta-stars {
+  inset: 90px 40px auto auto; text-align: right;
+  font: 700 46px "Oswald", sans-serif; letter-spacing: .12em; color: #ffd23f;
+  text-shadow: 3px 3px 0 #0b0418, 0 0 18px rgba(255, 210, 63, .8);
+  animation: gta-stars .5s steps(1) infinite;
+}
+@keyframes gta-stars { 50% { opacity: .2; } }
+.gta-police { animation: gta-police .5s steps(1) infinite; }
+@keyframes gta-police {
+  0%   { box-shadow: inset 0 0 120px 30px rgba(255, 30, 60, .55); }
+  50%  { box-shadow: inset 0 0 120px 30px rgba(30, 90, 255, .55); }
+}

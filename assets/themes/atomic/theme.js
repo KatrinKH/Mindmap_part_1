@@ -48,6 +48,22 @@
   },
   onLeave() { if (this._boot) { this._boot.remove(); this._boot = null; } },
 
+  // пасхалки темы (общая логика — в assets/eggs.js)
+  eggs: {
+    sceneClicks: 5,               // столько раз кликнуть по атому
+    decode(fx) {
+      fx.flash("ah-wave", 4000);
+      fx.sound("granted");
+      fx.toast("Декодирование завершено", "Социальные роли определены. Объект «Манипулятор» опознан и нейтрализован. Робот одобряет", "decode");
+    },
+    scene(fx) {
+      fx.flash("ah-overload", 3600);
+      fx.layer("ah-alarm", 3600);
+      fx.sound("alarm");
+      fx.toast("Перегрев реактора!", "Конфликт эскалирует. Срочно понизьте до 2 этапа — покажите границы", "scene");
+    }
+  },
+
   // картинка на карточке стартового экрана
   card: `
 <svg viewBox="0 0 320 200" aria-hidden="true">
@@ -74,7 +90,7 @@
   <path d="M8 392 L8 410 M392 392 L392 410 M8 404 H392"/>
   <text x="110" y="430" fill="#3d8fb0" stroke="none" font-family="PT Mono, monospace" font-size="13">ЯДРО · ЦЕЛЬ НА КОНФЛИКТ · СХЕМА 1-А</text>
 </svg>
-<svg class="ah-atom" data-depth=".14" data-mouse="5" viewBox="0 0 400 400">
+<svg class="ah-atom" data-depth=".14" data-mouse="5" viewBox="0 0 400 400" data-egg="scene">
         <g class="orbits" fill="none" stroke="#efe4cc" stroke-width="7">
           <ellipse cx="200" cy="200" rx="168" ry="56"/>
           <ellipse cx="200" cy="200" rx="168" ry="56" transform="rotate(60 200 200)"/>

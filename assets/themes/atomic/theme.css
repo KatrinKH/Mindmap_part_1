@@ -304,3 +304,25 @@ html[data-theme="atomic"] .minimap::before {
 html[data-theme="atomic"] .mm-toggle { border-radius: 0; border-color: #e0303f; background: #13202a; box-shadow: 3px 3px 0 #0c0d0f; }
 html[data-theme="atomic"] .mm-toggle:hover { background: #e0303f; color: #efe4cc; }
 html[data-theme="atomic"] .mm-wrap.collapsed .mm-toggle { color: #efe4cc; background: #e0303f; }
+
+/* ================= ПАСХАЛКИ ================= */
+html[data-theme="atomic"] .egg-toast { border: 3px solid #e0303f; box-shadow: 6px 6px 0 #0c0d0f; }
+html[data-theme="atomic"] .egg-kicker { display: inline-block; padding: 2px 8px; color: #efe4cc; background: #e0303f; }
+html[data-theme="atomic"] .egg-title { -webkit-text-fill-color: #e0303f; text-shadow: 3px 3px 0 #0c0d0f; }
+/* «декодирование»: робот машет, атом разгоняется */
+html.ah-wave .decor-atomic .ah-arm .seg1 { animation: ah-wave1 .5s ease-in-out 7 alternate; }
+html.ah-wave .decor-atomic .ah-arm .seg2 { animation: ah-wave2 .25s ease-in-out 14 alternate; }
+@keyframes ah-wave1 { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+@keyframes ah-wave2 { from { transform: rotate(-25deg); } to { transform: rotate(25deg); } }
+html.ah-wave .decor-atomic .ah-atom .orbits { animation-duration: 1.5s; }
+/* перегрев реактора */
+html.ah-overload .decor-atomic .ah-atom .orbits { animation-duration: .35s; }
+html.ah-overload .decor-atomic .ah-sun { animation: ah-pulse .3s ease-in-out infinite alternate; }
+@keyframes ah-pulse { to { filter: brightness(1.5) saturate(1.4); } }
+html.ah-overload .hero { animation: ah-shake .12s steps(2) infinite; }
+@keyframes ah-shake { 0% { translate: 3px -2px; } 50% { translate: -3px 2px; } }
+.ah-alarm {
+  background: repeating-linear-gradient(135deg, rgba(224, 48, 63, .28) 0 40px, transparent 40px 80px);
+  animation: ah-alarm .4s steps(1) infinite;
+}
+@keyframes ah-alarm { 50% { opacity: 0; } }
