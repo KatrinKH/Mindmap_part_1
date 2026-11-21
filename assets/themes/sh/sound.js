@@ -80,14 +80,14 @@ window.MM_SOUNDS = window.MM_SOUNDS || {};
       }));
       // ветер воет в проводах
       stops.push(H.every(18000, 36000, () => groan(ctx, rev, H)));
-      // шаги невидимки — точно в такт появлению следов на дороге (цикл 14 с, шаг каждые 0,7 с)
+      // шаги невидимки — точно в такт появлению следов на дороге (цикл 20 с, шаг каждые 0,6 с)
       let stepTimer = null, stepInt = null;
-      const firstStep = document.querySelector(".decor-sh .sh-steps i");
+      const firstStep = document.querySelector(".decor-sh .fp");
       const anim = firstStep && firstStep.getAnimations ? firstStep.getAnimations()[0] : null;
-      const cycle = () => { for (let k = 0; k < 14; k++) step(ctx, out, H, .22 * (1 - k / 16), k * .7); };
+      const cycle = () => { for (let k = 0; k < 14; k++) step(ctx, out, H, .22 * (1 - k / 16), k * .6); };
       if (anim && anim.currentTime != null) {
-        const wait = (14000 - (anim.currentTime % 14000)) % 14000;
-        stepTimer = setTimeout(() => { cycle(); stepInt = setInterval(cycle, 14000); }, wait);
+        const wait = (20000 - (anim.currentTime % 20000)) % 20000;
+        stepTimer = setTimeout(() => { cycle(); stepInt = setInterval(cycle, 20000); }, wait);
       }
       stops.push(() => { clearTimeout(stepTimer); clearInterval(stepInt); });
       // радио иногда оживает
