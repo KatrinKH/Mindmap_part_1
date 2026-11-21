@@ -219,27 +219,45 @@ window.MMFX = (function () {
   const dialog = document.getElementById("step-dialog");
   const title = document.getElementById("step-dialog-title");
   const content = document.getElementById("step-dialog-content");
+  const archive = document.getElementById("archive-detail");
+  const archiveTitle = document.getElementById("archive-detail-title");
+  const archiveContent = document.getElementById("archive-detail-content");
+  const html = document.documentElement;
+  const fillContent = (target, text) => {
+    target.replaceChildren();
+    text.split("\n").forEach(line => {
+      const separator = line.indexOf(": ");
+      const row = document.createElement("p");
+      if (separator < 0) row.textContent = line;
+      else {
+        const label = document.createElement("strong");
+        label.textContent = line.slice(0, separator);
+        row.append(label, document.createTextNode(line.slice(separator)));
+      }
+      target.appendChild(row);
+    });
+  };
   if (dialog && title && content) {
     document.querySelectorAll(".step[data-tip], .flow li[data-tip]").forEach(card => {
       card.setAttribute("role", "button");
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-haspopup", "dialog");
       const open = () => {
-        title.textContent = card.querySelector("h3")?.textContent || "Этап конфликта";
+        const cardTitle = card.querySelector("h3")?.textContent || "Этап конфликта";
+        const algoCard = card.closest("#algo");
+        if (algoCard && html.dataset.theme === "sh" && archive && archiveTitle && archiveContent) {
+          algoCard.querySelectorAll(".flow li.is-selected").forEach(item => item.classList.remove("is-selected"));
+          card.classList.add("is-selected");
+          archiveTitle.textContent = cardTitle;
+          fillContent(archiveContent, card.dataset.tip);
+          archive.classList.add("is-open");
+          archive.setAttribute("aria-hidden", "false");
+          return;
+        }
+        title.textContent = cardTitle;
         const kicker = document.getElementById("step-dialog-kicker");
-        if (kicker) kicker.textContent = card.closest("#algo") ? "Как думать в конфликте" : "Лестница конфликтов";
-        content.replaceChildren();
-        card.dataset.tip.split("\n").forEach(line => {
-          const separator = line.indexOf(": ");
-          const row = document.createElement("p");
-          if (separator < 0) { row.textContent = line; }
-          else {
-            const label = document.createElement("strong");
-            label.textContent = line.slice(0, separator);
-            row.append(label, document.createTextNode(line.slice(separator)));
-          }
-          content.appendChild(row);
-        });
+        if (kicker) kicker.textContent = algoCard ? "Как думать в конфликте" : "Лестница конфликтов";
+        fillContent(content, card.dataset.tip);
         dialog.showModal();
       };
       card.addEventListener("click", open);

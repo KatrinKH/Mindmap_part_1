@@ -173,6 +173,8 @@ h1 .outline { font-size: .42em; letter-spacing: .06em; margin-top: 10px; }
 .s4 { --c: var(--b4); min-height: 300px; }
 
 /* algo */
+.archive-layout { display: contents; }
+.archive-detail { display: none; }
 .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 .flow li {
   position: relative; padding: 18px;
