@@ -235,6 +235,13 @@ h1 .outline { font-size: .42em; letter-spacing: .06em; margin-top: 10px; }
   background: color-mix(in srgb, var(--a2) 10%, var(--bg));
   border: 1px dashed color-mix(in srgb, var(--a6) 70%, transparent); border-left: 4px solid var(--a6);
 }
+.node.def {
+  border: 1px solid color-mix(in srgb, var(--a3) 45%, transparent);
+  border-left: 4px solid var(--a3);
+  background: color-mix(in srgb, var(--a3) 10%, var(--bg));
+  font-weight: 500;
+}
+.lg.def { border: 2px solid var(--a3); background: color-mix(in srgb, var(--a3) 25%, transparent); }
 .node.k-in  { border-left-color: var(--a4); background: color-mix(in srgb, var(--a4) 14%, var(--bg)); font-weight: 700; }
 .node.k-out { border-left-color: var(--a1); background: color-mix(in srgb, var(--a1) 16%, var(--bg)); font-weight: 700; }
 .node.k-err { border-left-color: var(--err); background: color-mix(in srgb, var(--err) 12%, var(--bg)); }
