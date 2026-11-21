@@ -133,8 +133,18 @@ h1 .outline { font-size: .42em; letter-spacing: .06em; margin-top: 10px; }
 }
 .step h3 { margin: 0 0 6px; font-family: var(--head); text-transform: uppercase; font-size: 22px; letter-spacing: .03em; }
 .step p { margin: 0; color: var(--muted); font-size: 14px; }
+.ladder-intro {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 36px;
+}
+.ladder-intro .sec-sub { margin: 0; transform: none !important; }
+.ladder-intro .step-hint { margin: 0; }
+.algo-intro {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 36px;
+}
+.algo-intro .sec-sub { margin: 0; transform: none !important; }
+.algo-intro .step-hint { margin: 0; }
 .step-hint {
-  display: inline-block; margin: -22px 0 34px; padding: 6px 10px; border-radius: 999px;
+  display: block; width: fit-content; margin: -12px 0 34px; padding: 6px 10px; border-radius: 999px;
   color: var(--bg); background: var(--a1); font-size: 11px; font-weight: 700;
   letter-spacing: .02em; cursor: default;
 }
