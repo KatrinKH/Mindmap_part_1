@@ -1,7 +1,7 @@
 /* =========================================================
    Звук темы «Silent Hill»: город в тумане.
    Ветер, низкий индустриальный гул, далёкий скрежет металла,
-   стоны существ в тумане, шипение радио; при входе — сирена.
+   шаги невидимки в такт следам, шипение радио; при входе — сирена.
    Всё синтезируется в браузере.
    ========================================================= */
 window.MM_SOUNDS = window.MM_SOUNDS || {};
@@ -33,7 +33,12 @@ window.MM_SOUNDS = window.MM_SOUNDS || {};
     g.gain.setValueAtTime(0, t + dur);
     s.start(t); s.stop(t + dur + .05);
   }
-  // стон существа в тумане
+  // шаг по мокрому асфальту: глухой удар + шорох
+  function step(ctx, out, H, vol = .2, delay = 0) {
+    H.blip(out, { noise: "brown", dur: .18, vol: vol, delay, filter: ["lowpass", 380] });
+    H.blip(out, { noise: "white", dur: .06, vol: vol * .25, delay: delay + .01, filter: ["bandpass", 1800, 2] });
+  }
+  // далёкий низкий стон ветра в проводах
   function groan(ctx, out, H) {
     const t = ctx.currentTime, len = 2.2 + Math.random() * 1.5;
     const o = H.osc("sawtooth", 70 + Math.random() * 30);
@@ -73,8 +78,18 @@ window.MM_SOUNDS = window.MM_SOUNDS || {};
         H.blip(rev, { noise: "white", dur: 2.2, vol: .07, attack: .6, filter: ["bandpass", 1800 + Math.random() * 1500, 12] });
         H.blip(rev, { type: "triangle", freq: 420 + Math.random() * 200, to: 380, dur: 2, vol: .02, attack: .5 });
       }));
-      // стоны в тумане
-      stops.push(H.every(14000, 30000, () => groan(ctx, rev, H)));
+      // ветер воет в проводах
+      stops.push(H.every(18000, 36000, () => groan(ctx, rev, H)));
+      // шаги невидимки — точно в такт появлению следов на дороге (цикл 14 с, шаг каждые 0,7 с)
+      let stepTimer = null, stepInt = null;
+      const firstStep = document.querySelector(".decor-sh .sh-steps i");
+      const anim = firstStep && firstStep.getAnimations ? firstStep.getAnimations()[0] : null;
+      const cycle = () => { for (let k = 0; k < 14; k++) step(ctx, out, H, .22 * (1 - k / 16), k * .7); };
+      if (anim && anim.currentTime != null) {
+        const wait = (14000 - (anim.currentTime % 14000)) % 14000;
+        stepTimer = setTimeout(() => { cycle(); stepInt = setInterval(cycle, 14000); }, wait);
+      }
+      stops.push(() => { clearTimeout(stepTimer); clearInterval(stepInt); });
       // радио иногда оживает
       stops.push(H.every(8000, 18000, () => staticBurst(ctx, out, H, .4 + Math.random() * .8, .05)));
 
@@ -99,7 +114,8 @@ window.MM_SOUNDS = window.MM_SOUNDS || {};
       },
       // пасхалки
       siren(ctx, out, H) { siren(ctx, out, H, 4); },
-      radio(ctx, out, H) { staticBurst(ctx, out, H, 1.6, .16); groan(ctx, out, H); },
+      // радио шипит, а шаги приближаются
+      radio(ctx, out, H) { staticBurst(ctx, out, H, 1.6, .16); for (let k = 0; k < 14; k++) step(ctx, out, H, .06 + k * .025, .3 + k * .22); },
       egg(ctx, out, H) { H.blip(out, { type: "sine", freq: 196, to: 185, dur: 2.2, vol: .07, attack: .5 }); H.blip(out, { type: "sine", freq: 277, to: 262, dur: 2.2, vol: .05, attack: .5 }); },
       pop(ctx, out, H) { staticBurst(ctx, out, H, .12, .08); },
       alarm(ctx, out, H) { staticBurst(ctx, out, H, .8, .1); }
