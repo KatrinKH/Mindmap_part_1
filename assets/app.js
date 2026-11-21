@@ -220,12 +220,14 @@ window.MMFX = (function () {
   const title = document.getElementById("step-dialog-title");
   const content = document.getElementById("step-dialog-content");
   if (dialog && title && content) {
-    document.querySelectorAll(".step[data-tip]").forEach(card => {
+    document.querySelectorAll(".step[data-tip], .flow li[data-tip]").forEach(card => {
       card.setAttribute("role", "button");
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-haspopup", "dialog");
       const open = () => {
         title.textContent = card.querySelector("h3")?.textContent || "Этап конфликта";
+        const kicker = document.getElementById("step-dialog-kicker");
+        if (kicker) kicker.textContent = card.closest("#algo") ? "Как думать в конфликте" : "Лестница конфликтов";
         content.replaceChildren();
         card.dataset.tip.split("\n").forEach(line => {
           const separator = line.indexOf(": ");

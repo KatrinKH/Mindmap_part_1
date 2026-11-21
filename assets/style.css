@@ -169,6 +169,8 @@ h1 .outline { font-size: .42em; letter-spacing: .06em; margin-top: 10px; }
   background: linear-gradient(160deg, color-mix(in srgb, var(--a5) 22%, transparent), color-mix(in srgb, var(--a1) 12%, transparent));
   border-left: 4px solid var(--a1);
 }
+.flow li[data-tip] { cursor: pointer; }
+.flow li[data-tip]:focus-visible { outline: 2px solid var(--a1); outline-offset: 4px; }
 .flow i { font-style: normal; font-family: var(--head); font-size: 34px; color: var(--a3); text-shadow: 0 0 calc(14px * var(--glow)) color-mix(in srgb, var(--a3) 60%, transparent); }
 .flow h3 { margin: 2px 0 6px; font-family: var(--head); text-transform: uppercase; font-size: 20px; }
 .flow p { margin: 0; font-size: 14px; color: var(--muted); }
