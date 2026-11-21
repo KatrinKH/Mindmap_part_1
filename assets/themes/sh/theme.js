@@ -31,29 +31,32 @@
 
   // картинка на карточке стартового экрана
   card: `<svg viewBox="0 0 320 200" aria-hidden="true">
-  <defs><linearGradient id="ts1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6d4cf"/><stop offset="1" stop-color="#b5b2ac"/></linearGradient>
-  <linearGradient id="ts2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6d4cf" stop-opacity="1"/><stop offset=".55" stop-color="#d6d4cf" stop-opacity="0"/></linearGradient>
-  <linearGradient id="ts3" x1="0" y1="0" x2="0" y2="1"><stop offset=".62" stop-color="#d6d4cf" stop-opacity="0"/><stop offset="1" stop-color="#d6d4cf" stop-opacity=".55"/></linearGradient>
-  <filter id="tsb"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+  <defs><linearGradient id="ts1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9d7d2"/><stop offset="1" stop-color="#c3c0ba"/></linearGradient>
+  <linearGradient id="tsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bab7b1"/><stop offset="1" stop-color="#8f8c86"/></linearGradient>
+  <linearGradient id="tsr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9a6a0"/><stop offset="1" stop-color="#6f6c67"/></linearGradient>
+  <linearGradient id="ts3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6d4cf" stop-opacity=".0"/><stop offset=".5" stop-color="#d6d4cf" stop-opacity=".55"/><stop offset="1" stop-color="#d6d4cf" stop-opacity="0"/></linearGradient>
+  <filter id="tsb"><feGaussianBlur stdDeviation="1.4"/></filter><filter id="tsb2"><feGaussianBlur stdDeviation=".6"/></filter></defs>
   <rect width="320" height="200" fill="url(#ts1)"/>
-  <g opacity=".35" filter="url(#tsb)" stroke="#6f6c66" fill="none" stroke-width="1.4"><circle cx="250" cy="58" r="30"/><circle cx="250" cy="58" r="22"/><line x1="250" y1="58" x2="280.0" y2="58.0"/><line x1="250" y1="58" x2="276.0" y2="73.0"/><line x1="250" y1="58" x2="265.0" y2="84.0"/><line x1="250" y1="58" x2="250.0" y2="88.0"/><line x1="250" y1="58" x2="235.0" y2="84.0"/><line x1="250" y1="58" x2="224.0" y2="73.0"/><line x1="250" y1="58" x2="220.0" y2="58.0"/><line x1="250" y1="58" x2="224.0" y2="43.0"/><line x1="250" y1="58" x2="235.0" y2="32.0"/><line x1="250" y1="58" x2="250.0" y2="28.0"/><line x1="250" y1="58" x2="265.0" y2="32.0"/><line x1="250" y1="58" x2="276.0" y2="43.0"/><path d="M250 58 L236 112 M250 58 L264 112" stroke-width="2"/></g>
-  <path d="M150 112 L170 112 L260 200 L60 200 Z" fill="#8f8c86"/>
-  <path d="M159 116 L161 116 L163 200 L157 200 Z" fill="#c9c6bf" opacity=".6"/>
-  <g fill="#5a5752"><rect x="110" y="70" width="3" height="50"/><rect x="100" y="74" width="23" height="2"/><rect x="62" y="40" width="4" height="100"/><rect x="48" y="48" width="32" height="2.5"/><rect x="207" y="70" width="3" height="50"/><rect x="198" y="74" width="23" height="2"/><rect x="254" y="40" width="4" height="100"/><rect x="241" y="48" width="32" height="2.5"/></g>
-  <g fill="none" stroke="#5a5752" stroke-width="1"><path d="M64 49 Q90 66 111 75"/><path d="M256 49 Q232 66 209 75"/></g>
-  <path d="M60 52 Q160 86 260 52" fill="none" stroke="#5a5752" stroke-width="1"/>
-  <line x1="160" y1="69" x2="160" y2="74" stroke="#5a5752" stroke-width="1.2"/>
-  <rect x="155" y="74" width="10" height="24" rx="1.5" fill="#3c3935"/>
-  <circle cx="160" cy="79" r="2.4" fill="#2a2826"/><circle cx="160" cy="86" r="2.6" fill="#e0a43a"/><circle cx="160" cy="93" r="2.4" fill="#2a2826"/>
-  <circle cx="160" cy="86" r="9" fill="#e0a43a" opacity=".22" filter="url(#tsb)"/>
-  <g fill="#3f3c38" opacity=".75"><ellipse cx="150" cy="186" rx="5" ry="8"/><ellipse cx="170" cy="168" rx="4.4" ry="7"/><ellipse cx="152" cy="152" rx="3.8" ry="6"/><ellipse cx="167" cy="139" rx="3.2" ry="5"/><ellipse cx="154" cy="128" rx="2.7" ry="4.2"/><ellipse cx="165" cy="120" rx="2.2" ry="3.4"/></g>
-  <g transform="translate(214 150) scale(.42)" opacity=".85"><path d="M8 66 L14 46 L46 40 L70 20 L140 18 L170 40 L206 46 L212 66 Z" fill="#4a4743"/><path d="M76 26 L104 24 L104 40 L62 42 Z M110 24 L136 24 L156 40 L110 40 Z" fill="#9a978f" opacity=".6"/><circle cx="52" cy="68" r="15" fill="#33312e"/><circle cx="168" cy="68" r="15" fill="#33312e"/><circle cx="12" cy="54" r="6" fill="#f2e6c4"/></g>
-  <path d="M219 172 L150 160 L150 188 Z" fill="#f2e6c4" opacity=".28" filter="url(#tsb)"/>
-  <rect width="320" height="200" fill="url(#ts2)" opacity=".85"/>
-  <rect width="320" height="200" fill="url(#ts3)"/>
-  <text x="22" y="38" font-family="PT Serif, serif" font-size="20" letter-spacing="7" fill="#3b3936">КОНФЛИКТ</text>
-  <rect x="22" y="46" width="34" height="2" fill="#a3341f"/>
-</svg>`,
+  <g filter="url(#tsb)" opacity=".45" stroke="#7d7a75" fill="none" stroke-width="1.3"><circle cx="252" cy="78" r="26"/><line x1="252" y1="78" x2="278.0" y2="78.0"/><line x1="252" y1="78" x2="274.5" y2="91.0"/><line x1="252" y1="78" x2="265.0" y2="100.5"/><line x1="252" y1="78" x2="252.0" y2="104.0"/><line x1="252" y1="78" x2="239.0" y2="100.5"/><line x1="252" y1="78" x2="229.5" y2="91.0"/><line x1="252" y1="78" x2="226.0" y2="78.0"/><line x1="252" y1="78" x2="229.5" y2="65.0"/><line x1="252" y1="78" x2="239.0" y2="55.5"/><line x1="252" y1="78" x2="252.0" y2="52.0"/><line x1="252" y1="78" x2="265.0" y2="55.5"/><line x1="252" y1="78" x2="274.5" y2="65.0"/><path d="M252 78 L239 112 M252 78 L265 112" stroke-width="1.8"/></g>
+  <path d="M0 112 V93 H18 V104 H44 V97 H68 V99 H79 V93 H92 V97 H117 V87 H139 V86 H152 V104 H169 V91 H185 V99 H203 V99 H225 V100 H237 V100 H261 V104 H275 V98 H285 V99 H301 V95 H316 V98 H336 V112 Z" fill="#9a9792" opacity=".5" filter="url(#tsb)"/>
+  <rect x="0" y="112" width="320" height="88" fill="url(#tsg)"/>
+  <path d="M156 112 L164 112 L310 200 L10 200 Z" fill="url(#tsr)"/>
+  <path d="M159.80 112.0 L160.20 112.0 L160.21 112.9 L159.79 112.9 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.76 114.6 L160.24 114.6 L160.27 117.0 L159.73 117.0 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.68 119.9 L160.32 119.9 L160.37 123.3 L159.63 123.3 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.58 127.2 L160.42 127.2 L160.49 131.4 L159.51 131.4 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.44 136.0 L160.56 136.0 L160.63 141.0 L159.37 141.0 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.29 146.4 L160.71 146.4 L160.79 152.0 L159.21 152.0 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M159.12 158.0 L160.88 158.0 L160.97 164.3 L159.03 164.3 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M158.93 170.9 L161.07 170.9 L161.17 177.7 L158.83 177.7 Z" fill="#e2dfd8" opacity=".6"/>
+  <path d="M158.72 184.9 L161.28 184.9 L161.39 192.3 L158.61 192.3 Z" fill="#e2dfd8" opacity=".6"/>
+  <g fill="#5a5752"><rect x="137.0" y="104.3" width="0.8" height="16.5"/><rect x="134.8" y="104.8" width="5.2" height="0.6"/><rect x="103.5" y="104.2" width="0.9" height="32.4"/><rect x="98.9" y="105.2" width="10.1" height="0.6"/><rect x="43.6" y="104.1" width="1.6" height="60.7"/><rect x="34.9" y="106.0" width="19.0" height="0.9"/><rect x="-31.3" y="104.0" width="2.6" height="96.0"/><rect x="-45.0" y="107.0" width="30.0" height="1.4"/><rect x="182.2" y="104.3" width="0.8" height="16.5"/><rect x="180.0" y="104.8" width="5.2" height="0.6"/><rect x="215.6" y="104.2" width="0.9" height="32.4"/><rect x="211.0" y="105.2" width="10.1" height="0.6"/><rect x="274.8" y="104.1" width="1.6" height="60.7"/><rect x="266.1" y="106.0" width="19.0" height="0.9"/><rect x="348.7" y="104.0" width="2.6" height="96.0"/><rect x="335.0" y="107.0" width="30.0" height="1.4"/></g>
+  <g fill="none" stroke="#5a5752" stroke-width=".8"><path d="M137.4 104.8 Q120.7 107.9 103.9 105.2"/><path d="M103.9 105.2 Q74.2 110.8 44.4 106.0"/><path d="M44.4 106.0 Q7.2 113.0 -30.0 107.0"/><path d="M182.6 104.8 Q199.3 107.9 216.1 105.2"/><path d="M216.1 105.2 Q245.8 110.8 275.6 106.0"/><path d="M275.6 106.0 Q312.8 113.0 350.0 107.0"/><path d="M103.9 105.2 Q160 121.2 216.1 105.2"/></g>
+  <line x1="160" y1="113.2" x2="160" y2="116.2" stroke="#5a5752" stroke-width=".9"/><rect x="156.4" y="116.2" width="7.2" height="17" rx="1.2" fill="#3c3935"/><circle cx="160" cy="119.8" r="1.7" fill="#2a2826"/><circle cx="160" cy="124.7" r="1.9" fill="#e0a43a"/><circle cx="160" cy="129.6" r="1.7" fill="#2a2826"/><circle cx="160" cy="124.7" r="6" fill="#e0a43a" opacity=".25" filter="url(#tsb)"/>
+  <g fill="#3a3734" opacity=".75" filter="url(#tsb2)"><ellipse cx="147.6" cy="193.0" rx="4.1" ry="3.7"/><ellipse cx="170.7" cy="181.5" rx="3.6" ry="3.3"/><ellipse cx="151.0" cy="170.1" rx="3.2" ry="2.9"/><ellipse cx="167.3" cy="158.6" rx="2.7" ry="2.4"/><ellipse cx="154.4" cy="147.2" rx="2.2" ry="2.0"/><ellipse cx="163.9" cy="135.8" rx="1.8" ry="1.6"/><ellipse cx="157.8" cy="124.3" rx="1.3" ry="1.2"/></g>
+  <g transform="translate(267.1 147.4) scale(0.234)"><path d="M10 52 L-200 26 Q-220 62 -200 98 L10 60 Z" fill="#f4ead0" opacity=".35" filter="url(#tsb)"/><path d="M8 66 L14 46 L46 40 L70 20 L140 18 L170 40 L206 46 L212 66 Z" fill="#4a4743"/><path d="M76 26 L104 24 L104 40 L62 42 Z M110 24 L136 24 L156 40 L110 40 Z" fill="#9a978f" opacity=".6"/><circle cx="52" cy="68" r="15" fill="#33312e"/><circle cx="168" cy="68" r="15" fill="#33312e"/><circle cx="12" cy="54" r="6" fill="#f2e6c4"/></g>
+  <rect x="0" y="82" width="320" height="60" fill="url(#ts3)"/>
+  <text x="22" y="38" font-family="PT Serif, serif" font-size="20" letter-spacing="7" fill="#3b3936">КОНФЛИКТ</text><rect x="22" y="46" width="44" height="3" fill="#a3341f"/></svg>`,
 
   // сцена на фоне главного экрана (data-depth — сила параллакса)
   decor: `
