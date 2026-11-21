@@ -358,10 +358,36 @@ window.MMFX = (function () {
   mini.setAttribute("role", "img");
   mini.setAttribute("aria-label", "Мини-карта: нажмите, чтобы перейти к нужному месту");
   mini.innerHTML = '<canvas></canvas><span class="mm-frame"></span>';
-  viewport.appendChild(mini);
+  // обёртка: мини-карта + кнопка «свернуть / развернуть»
+  const miniWrap = document.createElement("div");
+  miniWrap.className = "mm-wrap";
+  const miniBtn = document.createElement("button");
+  miniBtn.type = "button";
+  miniBtn.className = "mm-toggle";
+  miniBtn.innerHTML =
+    '<svg class="mm-ico-min" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>' +
+    '<svg class="mm-ico-map" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' +
+    '<span class="mm-toggle-label">Мини-карта</span>';
+  miniWrap.append(mini, miniBtn);
+  viewport.appendChild(miniWrap);
+  // клики по мини-карте и кнопке не должны двигать большую карту
+  miniWrap.addEventListener("pointerdown", e => e.stopPropagation());
+  function setMiniCollapsed(c, save) {
+    miniWrap.classList.toggle("collapsed", c);
+    miniBtn.setAttribute("aria-expanded", String(!c));
+    miniBtn.setAttribute("aria-label", c ? "Развернуть мини-карту" : "Свернуть мини-карту");
+    miniBtn.title = c ? "Развернуть мини-карту" : "Свернуть мини-карту";
+    if (save) { try { localStorage.setItem("mindmap-minimap-collapsed", c ? "1" : "0"); } catch (e) { /* нет хранилища */ } }
+    if (!c && save) drawMini();   // при загрузке страницы карта нарисуется сама
+  }
+  miniBtn.addEventListener("click", () => {
+    setMiniCollapsed(!miniWrap.classList.contains("collapsed"), true);
+    if (window.MMSound) window.MMSound.play(miniWrap.classList.contains("collapsed") ? "close" : "open");
+  });
+  try { setMiniCollapsed(localStorage.getItem("mindmap-minimap-collapsed") === "1", false); } catch (e) { setMiniCollapsed(false, false); }
   const mctx = mini.querySelector("canvas").getContext("2d");
   let miniQueued = false, miniMap = null;
-  try { if (localStorage.getItem("mindmap-minimap") === "off") mini.classList.add("hidden"); } catch (e) { /* нет хранилища */ }
+  try { if (localStorage.getItem("mindmap-minimap") === "off") miniWrap.classList.add("hidden"); } catch (e) { /* нет хранилища */ }
 
   function cssColor(v, fallback) {
     const m = /var\((--[\w-]+)\)/.exec(v || "");
@@ -374,7 +400,7 @@ window.MMFX = (function () {
     requestAnimationFrame(() => { miniQueued = false; paintMini(); });
   }
   function paintMini() {
-    if (mini.classList.contains("hidden") || !bounds.w) return;
+    if (miniWrap.classList.contains("hidden") || miniWrap.classList.contains("collapsed") || !bounds.w) return;
     const st = getComputedStyle(mini);
     const mode = st.getPropertyValue("--mm-mode").trim() || "plan";
     const W = mini.clientWidth, H = mini.clientHeight, dpr = window.devicePixelRatio || 1;
@@ -445,7 +471,6 @@ window.MMFX = (function () {
   }
   let miniDrag = false;
   mini.addEventListener("pointerdown", e => {
-    e.stopPropagation();           // не начинать перетаскивание большой карты
     miniDrag = true; mini.setPointerCapture(e.pointerId); miniGo(e);
   });
   mini.addEventListener("pointermove", e => { if (miniDrag) miniGo(e); });
@@ -542,7 +567,7 @@ window.MMFX = (function () {
     if (act === "collapse") { all.forEach(n => n.open = n.depth < 1); clearSearch(); render(); fit(); }
     if (act === "fit") fit();
     if (act === "minimap") {
-      const off = mini.classList.toggle("hidden");
+      const off = miniWrap.classList.toggle("hidden");
       e.target.setAttribute("aria-pressed", String(!off));
       try { localStorage.setItem("mindmap-minimap", off ? "off" : "on"); } catch (err) { /* нет хранилища */ }
       drawMini();

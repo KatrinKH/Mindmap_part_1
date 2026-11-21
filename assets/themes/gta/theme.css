@@ -212,3 +212,6 @@ html[data-theme="gta"] .minimap .mm-frame {
 @keyframes gta-radar { to { transform: rotate(360deg); } }
 html[data-theme="gta"] .minimap::before { content: "Радар"; left: 50%; top: auto; bottom: 10px; transform: translateX(-50%); color: #ffd23f; text-shadow: 0 0 6px #ff2e88; }
 @media (max-width: 600px) { html[data-theme="gta"] .minimap { width: 120px; height: 120px; } }
+html[data-theme="gta"] .mm-toggle { top: 6px; right: 6px; border-color: #ff2e88; box-shadow: 0 0 12px rgba(255, 46, 136, .7); }
+html[data-theme="gta"] .mm-toggle:hover { background: #ff2e88; }
+html[data-theme="gta"] .mm-wrap.collapsed .mm-toggle { color: #ffd23f; }

@@ -301,3 +301,6 @@ html[data-theme="atomic"] .minimap::before {
   padding: 2px 8px; color: #efe4cc; background: #e0303f; letter-spacing: .2em;
 }
 @media (max-width: 600px) { html[data-theme="atomic"] .minimap { width: 160px; height: 104px; } }
+html[data-theme="atomic"] .mm-toggle { border-radius: 0; border-color: #e0303f; background: #13202a; box-shadow: 3px 3px 0 #0c0d0f; }
+html[data-theme="atomic"] .mm-toggle:hover { background: #e0303f; color: #efe4cc; }
+html[data-theme="atomic"] .mm-wrap.collapsed .mm-toggle { color: #efe4cc; background: #e0303f; }

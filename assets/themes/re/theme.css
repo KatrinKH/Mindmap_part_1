@@ -232,3 +232,7 @@ html[data-theme="re"] .minimap .mm-frame {
   animation: re-grain .9s steps(4) infinite;
 }
 html[data-theme="re"] .minimap::before { content: "Схема · вы здесь"; color: #6c6d72; letter-spacing: .3em; }
+html[data-theme="re"] .mm-toggle { border-width: 1px; border-color: #3a3c42; background: #08090b; box-shadow: none; color: #8b8b90; }
+html[data-theme="re"] .mm-toggle:hover { border-color: #c4161c; background: #08090b; color: #d9d6d0; }
+html[data-theme="re"] .mm-wrap.collapsed .mm-toggle { color: #bdb8ae; border-color: #55575e; }
+html[data-theme="re"] .mm-wrap.collapsed .mm-toggle:hover { color: #ece9e3; border-color: #c4161c; }
